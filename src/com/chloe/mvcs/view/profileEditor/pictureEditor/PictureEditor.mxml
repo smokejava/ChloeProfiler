@@ -74,6 +74,9 @@
 			</s:fill>
 		</s:Rect>
 		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
+		<s:Group id="getPictureFrom" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1">
+			<s:Label horizontalCenter="0" text="Where do you want to get the picture from?" styleName="AddProfileLabel"/>
+		</s:Group>
 	</s:Group>
 	<s:Group includeIn="editPictureClosed, editPictureEditing">
 		
