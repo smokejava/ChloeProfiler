@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:search="com.chloe.mvcs.view.search.*" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*" x.search="0" x.profileEditor="{-775}">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:search="com.chloe.mvcs.view.search.*" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*" x.search="0" x.profileEditor="{-774}">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -22,7 +22,7 @@
 	</fx:Script>
 	<s:transitions>
 		<s:Transition fromState="search" toState="profileEditor" autoReverse="true">
-			<s:Move targets="{this}" duration="750"/>
+			<s:Move targets="{this}" duration="500"/>
 		</s:Transition>
 	</s:transitions>
 	<s:states>

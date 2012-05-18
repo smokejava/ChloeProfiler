@@ -18,12 +18,14 @@ package com.chloe.mvcs.model
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import mx.collections.ArrayCollection;
+	
 	public class ChloeProfileModel extends EventDispatcher
 	{
 		public var _chloeId:String = new String();
 		public var _sex:String = new String();
 		public var _birthday:DateModel = new DateModel();
-		public var _pictures:Vector.<PictureHistoryModel> = new Vector.<PictureHistoryModel>();
+		public var _pictures:ArrayCollection = new ArrayCollection();
 		public var picturesToServer:Array = new Array();
 		public var picturesToFlex:Array = new Array();
 		
@@ -83,7 +85,7 @@ package com.chloe.mvcs.model
 		
 		private function addTestData():void {
 			
-			var nameHistory:FullNameHistoryModel = new FullNameHistoryModel();
+			/*var nameHistory:FullNameHistoryModel = new FullNameHistoryModel();
 			
 			var name:FullNameModel = new FullNameModel();
 			var namePiece:NameModel = new NameModel();
@@ -109,7 +111,7 @@ package com.chloe.mvcs.model
 			
 			this._pictures.push(pictureHistory);
 			this._pictures.push(pictureHistory);
-			this._pictures.push(pictureHistory);
+			this._pictures.push(pictureHistory);*/
 		}
 
 		public function get rdioAccounts():Array{

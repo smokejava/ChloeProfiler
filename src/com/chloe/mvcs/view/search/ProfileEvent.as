@@ -6,6 +6,7 @@ package com.chloe.mvcs.view.search
 	
 	public class ProfileEvent extends Event
 	{
+		public static const SEARCH_FOR_PROFILE:String = "SEARCH_FOR_PROFILE";
 		public static const CREATE_NEW_PROFILE:String = "CREATE_NEW_PROFILE";
 		
 		private var _profile:ChloeProfileModel;

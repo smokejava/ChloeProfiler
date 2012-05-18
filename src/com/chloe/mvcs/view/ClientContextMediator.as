@@ -15,12 +15,18 @@ package com.chloe.mvcs.view
 		
 		override public function onRegister():void {
 			
+			eventMap.mapListener(eventDispatcher, ProfileEvent.SEARCH_FOR_PROFILE, onSearchForProfileHandler);
 			eventMap.mapListener(eventDispatcher, ProfileEvent.CREATE_NEW_PROFILE, onCreateProfileHandler);
 		}
 		
 		private function onCreateProfileHandler(event:ProfileEvent):void {
 			trace("change")
 			this.view.currentState = "profileEditor";
+		}
+		
+		private function onSearchForProfileHandler(event:ProfileEvent):void {
+			
+			this.view.currentState = "search";
 		}
 	}
 }
