@@ -56,7 +56,7 @@
 		<s:Transition fromState="newPictureClosed" toState="newPictureEditing" autoReverse="true">
 			<s:Parallel>
 				<s:Resize targets="{newBackground}" duration="500"/>
-				<s:Fade targets="{addPictureLabel}" duration="500"/>
+				<s:Fade targets="{addPictureLabel, getPictureFrom}" duration="500"/>
 			</s:Parallel>
 		</s:Transition>
 	</s:transitions>
@@ -74,8 +74,16 @@
 			</s:fill>
 		</s:Rect>
 		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
-		<s:Group id="getPictureFrom" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1">
+		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1">
+			<s:layout>
+				<s:VerticalLayout gap="10"/>
+			</s:layout>
 			<s:Label horizontalCenter="0" text="Where do you want to get the picture from?" styleName="AddProfileLabel"/>
+			<s:Group horizontalCenter="0">
+				<s:layout>
+					<s:HorizontalLayout gap="10"/>
+				</s:layout>
+			</s:Group>
 		</s:Group>
 	</s:Group>
 	<s:Group includeIn="editPictureClosed, editPictureEditing">
