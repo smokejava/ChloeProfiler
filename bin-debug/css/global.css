@@ -1,0 +1,21 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+s|TextInput.searchInput {
+	
+	 fontFamily			: TimesItalic;
+	 fontSize			: 24;
+	 color				: #c5c3c3;
+	 fontStyle			: italic;;
+}
+
+s|Label.AddProfileLabel {
+	
+	fontFamily			: HelveticaNeueBold;
+	color				: #f7f8fa;
+	fontWeight			: bold;
+	fontSize			: 14;
+	lineHeight			: 13;
+	kerning				: true;
+	trackingLeft		: -1;
+}

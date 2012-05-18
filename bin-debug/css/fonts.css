@@ -1,0 +1,50 @@
+/* CSS file */
+
+@font-face {
+	src						: url('fonts/HelveticaNeue.ttf');
+	fontFamily				: HelveticaNeue;		/* Name used in css */
+	fontStyle				: normal;				/* normal | italic | oblique */
+	fontWeight				: normal;				/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
+
+@font-face {
+	src						: url('fonts/HelveticaNeueBold.ttf');
+	fontFamily				: HelveticaNeueBold;	/* Name used in css */
+	fontStyle				: normal;				/* normal | italic | oblique */
+	fontWeight				: bold;					/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
+
+
+@font-face {
+	src						: url('fonts/TimesRoman.ttf');
+	fontFamily				: TimesRegular;	/* Name used in css */
+	fontStyle				: normal;				/* normal | italic | oblique */
+	fontWeight				: normal;					/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
+
+@font-face {
+	src						: url('fonts/TimesBold.ttf');
+	fontFamily				: TimesBold;	/* Name used in css */
+	fontStyle				: normal;				/* normal | italic | oblique */
+	fontWeight				: bold;					/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
+
+@font-face {
+	src						: url('fonts/TimesItalic.ttf');
+	fontFamily				: TimesItalic;	/* Name used in css */
+	fontStyle				: italic;				/* normal | italic | oblique */
+	fontWeight				: normal;					/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
+
+@font-face {
+	src						: url('fonts/TimesBoldItalic.ttf');
+	fontFamily				: TimesBoldItalic;	/* Name used in css */
+	fontStyle				: italic;				/* normal | italic | oblique */
+	fontWeight				: bold;					/* normal | bold | heavy */
+    embedAsCFF              : true;
+}
