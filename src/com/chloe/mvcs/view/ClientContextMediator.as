@@ -19,7 +19,7 @@ package com.chloe.mvcs.view
 		}
 		
 		private function onCreateProfileHandler(event:ProfileEvent):void {
-			
+			trace("change")
 			this.view.currentState = "profileEditor";
 		}
 	}

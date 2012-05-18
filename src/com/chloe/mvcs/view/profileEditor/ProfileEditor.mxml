@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.ChloeProfileModel;
+			
+			[Bindable]
+			private var _profileToEdit:ChloeProfileModel;
+			
+			public function get profileToEdit():ChloeProfileModel				{ return _profileToEdit};
+			public function set profileToEdit(value:ChloeProfileModel):void 	{_profileToEdit = value};
+			
+			private function onStartSwipeHandler(event:GestureEvent):void {
+				
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<profileEditor:ProfileEditorStart gestureSwipe="onStartSwipeHandler(event)"/>
 </s:Group>

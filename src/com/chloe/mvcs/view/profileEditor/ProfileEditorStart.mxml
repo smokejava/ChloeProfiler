@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.ChloeProfileModel;
+			
+			[Bindable][Embed(source="embedded_assets/new_profile_start_screen.png")]
+			private var startScreen:Class;
+			
+			[Bindable]
+			private var _profileToEdit:ChloeProfileModel;
+			
+			public function set profileToEdit(value:ChloeProfileModel):void{
+				_profileToEdit = value;
+					
+				if(_profileToEdit!=null) {
+					this.currentState = "existingProfile";
+				}
+			};
+
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="newProfile"/>
+		<s:State name="existingProfile"/>
+	</s:states>
+	
+	<s:BitmapImage includeIn="newProfile" source="{startScreen}"/>
+</s:Group>
