@@ -7,10 +7,13 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import caurina.transitions.Tweener;
 			import com.chloe.mvcs.model.picture.PictureModel;
 			
 			import mx.events.EffectEvent;
 			import mx.utils.StringUtil;
+			
+			import spark.core.SpriteVisualElement;
 
 			[Bindable][Embed(source="embedded_assets/photorollButton.png")]
 			private var photoRoll:Class;
@@ -33,6 +36,8 @@
 			[Bindable]
 			private var pictureBitmap:BitmapData;
 			
+			private var pictureMask:SpriteVisualElement = new SpriteVisualElement();
+			
 			private var originalScaleX:Number = 1;
 			
 			public function get pictureData():PictureModel
@@ -49,6 +54,12 @@
 					
 					if(pictureData.rawBitmap==null) {
 						this.currentState == "newPictureClosed";
+						
+						pictureMask.graphics.beginFill(0xFF0000);
+						pictureMask.graphics.drawRect(0, 0, 768, 1024);
+						pictureMask.graphics.endFill();
+						this.addElement(pictureMask);
+						this.imageContainer.mask = pictureMask;
 					} else {
 						this.currentState == "editPictureClosed";
 						this.pictureBitmap = pictureData.rawBitmap.bitmapData;
@@ -58,6 +69,7 @@
 					picturePath = _pictureData.rawPath;
 				}
 			}
+
 			
 			private function onAddPictureClickHandler(event:MouseEvent):void {
 				
@@ -169,6 +181,10 @@
 			
 			private function onDoneEditingClickHandler(event:MouseEvent):void {
 				
+				this.currentState = "editPictureClosed";
+				
+				Tweener.addTween(this.pictureMask, {y:279, time:.5, transition:"easeOutQuad"});
+				Tweener.addTween(this.pictureMask, {height:477, time:.5, transition:"easeOutQuad"});
 			}
 			
 			private function scaleInitialImage():void {
@@ -209,6 +225,9 @@
 		<s:Transition fromState="scalePictureInstructions" toState="scalingPicture" autoReverse="true">
 			<s:Fade target="{scalingInstructions}" duration="500" effectEnd="onHideScalingInstructions(event)"/>
 		</s:Transition>
+		<s:Transition fromState="scalingPicture" toState="editPictureClosed" autoReverse="true">
+			<s:Fade target="{saveButton" duration="500"/>
+		</s:Transition>
 	</s:transitions>
 	<s:states>
 		<s:State name="newPictureClosed"/>
@@ -246,7 +265,7 @@
 		</s:Group>
 	</s:Group>
 	<s:BitmapImage id="scalingInstructions" x="213" y="422" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="0" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" source="{scalingInstrucitonsBitmap}"/>
-	<s:Group id="saveButton" x="690" y="985" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="1" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" click="onDoneEditingClickHandler(event)">
+	<s:Group id="saveButton" x="690" y="985" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="1" alpha.editPictureClosed="0" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" click="onDoneEditingClickHandler(event)">
 		<s:BitmapImage  source="{saveButtonBitmap}"/>
 	</s:Group>
 </s:Group>
