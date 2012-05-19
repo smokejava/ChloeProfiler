@@ -19,3 +19,13 @@ s|Label.AddProfileLabel {
 	kerning				: true;
 	trackingLeft		: -1;
 }
+
+s|Label.QuestionLabel {
+	
+	fontFamily			: HelveticaNeueBold;
+	color				: #f7f8fa;
+	fontWeight			: bold;
+	fontSize			: 16;
+	kerning				: true;
+	trackingLeft		: -1;
+}

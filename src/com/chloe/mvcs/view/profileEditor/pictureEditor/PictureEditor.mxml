@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:uicomponents="com.chloe.mvcs.view.profileEditor.pictureEditor.uicomponents.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -11,6 +11,12 @@
 			
 			import mx.utils.StringUtil;
 
+			[Bindable][Embed(source="embedded_assets/photorollButton.png")]
+			private var photoRoll:Class;
+			
+			[Bindable][Embed(source="embedded_assets/takePhotoButton.png")]
+			private var takePhoto:Class;
+			
 			[Bindable]
 			private var _pictureData:PictureModel
 			
@@ -48,6 +54,14 @@
 				
 				this.currentState = "newPictureEditing";
 			}
+			
+			private function onPhotoRollClickHandler(event:MouseEvent):void {
+				
+			}
+			
+			private function onTakePhotoClickHandler(event:MouseEvent):void {
+				
+			}
 
 		]]>
 	</fx:Script>
@@ -74,15 +88,17 @@
 			</s:fill>
 		</s:Rect>
 		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
-		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1">
+		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1" visible.newPictureClosed="false" visible.newPictureEditing="true">
 			<s:layout>
 				<s:VerticalLayout gap="10"/>
 			</s:layout>
-			<s:Label horizontalCenter="0" text="Where do you want to get the picture from?" styleName="AddProfileLabel"/>
+			<s:Label horizontalCenter="0" text="Where do you want to get the picture from?" styleName="QuestionLabel"/>
 			<s:Group horizontalCenter="0">
 				<s:layout>
 					<s:HorizontalLayout gap="10"/>
 				</s:layout>
+				<uicomponents:PhotoRollButton click="onPhotoRollClickHandler(event)"/>
+				<uicomponents:TakePhotoButton click="onTakePhotoClickHandler(event)"/>
 			</s:Group>
 		</s:Group>
 	</s:Group>
