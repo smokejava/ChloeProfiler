@@ -52,22 +52,96 @@
 			
 			private function onAddPictureClickHandler(event:MouseEvent):void {
 				
-				this.currentState = "newPictureEditing";
+				this.currentState = "newPictureSourceChooser";
 			}
 			
 			private function onPhotoRollClickHandler(event:MouseEvent):void {
 				
+				var photoLibrarySelector:CameraRoll = new CameraRoll();
+				var cameraRollOptions:CameraRollBrowseOptions = new CameraRollBrowseOptions();
+				cameraRollOptions.width = this.stage.stageWidth / 3;
+				cameraRollOptions.height = this.stage.stageHeight/3;
+				cameraRollOptions.origin = new Rectangle(event.target.x+10, event.target.y, event.target.width, event.target.height);
+				
+				photoLibrarySelector.browseForImage(cameraRollOptions);
+				photoLibrarySelector.addEventListener(MediaEvent.SELECT, onPhotoSelected);
 			}
 			
 			private function onTakePhotoClickHandler(event:MouseEvent):void {
 				
+			}
+			
+			private function onPhotoSelected(event:MediaEvent):void {
+				
+				var promise:MediaPromise = event.data;
+				var loaderContext:LoaderContext = new LoaderContext();
+				loaderContext.imageDecodingPolicy = ImageDecodingPolicy.ON_LOAD;
+				var loader:Loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onImageLoaded);
+				loader.loadFilePromise(promise, loaderContext);
+				event.currentTarget.removeEventListener(MediaEvent.SELECT, onPhotoSelected);
+			}
+			
+			private function onImageLoaded(event:Event):void {
+				
+				pictureBitmap = event.currentTarget.content.bitmapData;
+				image.x = -image.width/2;
+				image.y = -image.height/2;
+				
+				imageContainer.alpha = 1;
+				
+				imageContainer.x = Screen.mainScreen.bounds.width/2;
+				imageContainer.y = Screen.mainScreen.bounds.height/2;
+				imageContainer.scaleX = 1;
+				imageContainer.scaleY = 1;
+				if(this.imageContainer.numChildren>0) {
+					
+					var a:int = 0;
+					var b:int = this.imageContainer.numChildren;
+					for(;a<b;a++) {
+						
+						this.imageContainer.removeChildAt(a)
+					}
+				}
+				
+				/* var whiteBackground:WhiteBackground = new WhiteBackground();
+				whiteBackground.width = image.width;
+				whiteBackground.height = image.height;
+				whiteBackground.x = -(whiteBackground.width/2)
+					whiteBackground.y = -(whiteBackground.height/2); */
+				/* this.imageContainer.addChild(whiteBackground);
+				this.addChild(imageContainer); */
+				//imageContainer.addElement(image);
+				//Tweener.addTween(this.imageContainer, {alpha:1, time:.5, transition:"easeOutQuad"});
+				
+				event.currentTarget.removeEventListener(Event.COMPLETE, onImageLoaded);
+				this.currentState = "newPictureEditing";
+				scaleInitialImage();
+				//showScaleInstructions();
+			}
+			private function scaleInitialImage():void {
+				
+				//minScaleX = 200/imageContainer.width;
+				
+				if(imageContainer.width>Screen.mainScreen.bounds.width || imageContainer.height>Screen.mainScreen.bounds.height) {
+					
+					if(imageContainer.width>imageContainer.height) {
+						
+						imageContainer.scaleX = imageContainer.scaleY = Screen.mainScreen.bounds.width/imageContainer.width;
+					} else {
+						
+						imageContainer.scaleY = imageContainer.scaleX = Screen.mainScreen.bounds.height/imageContainer.height;
+					}
+				}
+				
+				//originalScaleX = imageContainer.scaleX;
 			}
 
 		]]>
 	</fx:Script>
 	
 	<s:transitions>
-		<s:Transition fromState="newPictureClosed" toState="newPictureEditing" autoReverse="true">
+		<s:Transition fromState="newPictureClosed" toState="newPictureSourceChooser" autoReverse="true">
 			<s:Parallel>
 				<s:Resize targets="{newBackground}" duration="500"/>
 				<s:Fade targets="{addPictureLabel, getPictureFrom}" duration="500"/>
@@ -76,19 +150,20 @@
 	</s:transitions>
 	<s:states>
 		<s:State name="newPictureClosed"/>
+		<s:State name="newPictureSourceChooser"/>
 		<s:State name="newPictureEditing"/>
 		<s:State name="editPictureClosed"/>
 		<s:State name="editPictureEditing"/>
 	</s:states>
 	
-	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureEditing"  click="onAddPictureClickHandler(event)">
-		<s:Rect width="768" height.newPictureClosed="473" height.newPictureEditing="1280">
+	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureSourceChooser, newPictureEditing"  click="onAddPictureClickHandler(event)">
+		<s:Rect width="768" height.newPictureClosed="473" height.newPictureSourceChooser="1280" height.newPictureEditing="1280">
 			<s:fill>
 				<s:SolidColor color="#242323"/>
 			</s:fill>
 		</s:Rect>
-		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
-		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureEditing="1" visible.newPictureClosed="false" visible.newPictureEditing="true">
+		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureSourceChooser="497" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureSourceChooser="0" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
+		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureSourceChooser="497" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureSourceChooser="1" alpha.newPictureEditing="0" visible.newPictureClosed="false" visible.newPictureEditing="true">
 			<s:layout>
 				<s:VerticalLayout gap="10"/>
 			</s:layout>
@@ -102,7 +177,9 @@
 			</s:Group>
 		</s:Group>
 	</s:Group>
-	<s:Group includeIn="editPictureClosed, editPictureEditing">
-		
+	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureEditing, newPictureSourceChooser">
+		<s:Group id="imageContainer">
+			<s:BitmapImage id="image" source="{pictureBitmap}"/>
+		</s:Group>
 	</s:Group>
 </s:Group>
