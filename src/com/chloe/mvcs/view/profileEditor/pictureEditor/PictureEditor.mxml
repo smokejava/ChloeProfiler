@@ -85,8 +85,9 @@
 			private function onImageLoaded(event:Event):void {
 				
 				pictureBitmap = event.currentTarget.content.bitmapData;
-				image.x = -image.width/2;
-				image.y = -image.height/2;
+				image.x = -pictureBitmap.width/2;
+				image.y = -pictureBitmap.height/2;
+				trace("width: ", pictureBitmap.width);
 				
 				imageContainer.alpha = 1;
 				
@@ -115,7 +116,7 @@
 				//Tweener.addTween(this.imageContainer, {alpha:1, time:.5, transition:"easeOutQuad"});
 				
 				event.currentTarget.removeEventListener(Event.COMPLETE, onImageLoaded);
-				this.currentState = "newPictureEditing";
+				this.currentState = "editPictureEditing";
 				scaleInitialImage();
 				//showScaleInstructions();
 			}
@@ -151,19 +152,18 @@
 	<s:states>
 		<s:State name="newPictureClosed"/>
 		<s:State name="newPictureSourceChooser"/>
-		<s:State name="newPictureEditing"/>
 		<s:State name="editPictureClosed"/>
 		<s:State name="editPictureEditing"/>
 	</s:states>
 	
-	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureSourceChooser, newPictureEditing"  click="onAddPictureClickHandler(event)">
-		<s:Rect width="768" height.newPictureClosed="473" height.newPictureSourceChooser="1280" height.newPictureEditing="1280">
+	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureSourceChooser, editPictureEditing"  click="onAddPictureClickHandler(event)">
+		<s:Rect width="768" height.newPictureClosed="473" height.newPictureSourceChooser="1280" height.editPictureEditing="1280">
 			<s:fill>
 				<s:SolidColor color="#242323"/>
 			</s:fill>
 		</s:Rect>
-		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureSourceChooser="497" y.newPictureEditing="497" alpha.newPictureClosed="1" alpha.newPictureSourceChooser="0" alpha.newPictureEditing="0" styleName="AddProfileLabel"/>
-		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureSourceChooser="497" y.newPictureEditing="497" alpha.newPictureClosed="0" alpha.newPictureSourceChooser="1" alpha.newPictureEditing="0" visible.newPictureClosed="false" visible.newPictureEditing="true">
+		<s:Label id="addPictureLabel" horizontalCenter="0" text="Add a picture" y.newPictureClosed="222" y.newPictureSourceChooser="497"  alpha.newPictureClosed="1" alpha.newPictureSourceChooser="0"  styleName="AddProfileLabel"/>
+		<s:Group id="getPictureFrom" horizontalCenter="0" y.newPictureClosed="222" y.newPictureSourceChooser="497" alpha.newPictureClosed="0" alpha.newPictureSourceChooser="1"  visible.newPictureClosed="false" >
 			<s:layout>
 				<s:VerticalLayout gap="10"/>
 			</s:layout>
@@ -177,7 +177,7 @@
 			</s:Group>
 		</s:Group>
 	</s:Group>
-	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureEditing, newPictureSourceChooser">
+	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureSourceChooser">
 		<s:Group id="imageContainer">
 			<s:BitmapImage id="image" source="{pictureBitmap}"/>
 		</s:Group>
