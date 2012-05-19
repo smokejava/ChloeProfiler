@@ -9,6 +9,7 @@
 		<![CDATA[
 			import com.chloe.mvcs.model.picture.PictureModel;
 			
+			import mx.events.EffectEvent;
 			import mx.utils.StringUtil;
 
 			[Bindable][Embed(source="embedded_assets/photorollButton.png")]
@@ -16,6 +17,12 @@
 			
 			[Bindable][Embed(source="embedded_assets/takePhotoButton.png")]
 			private var takePhoto:Class;
+			
+			[Bindable][Embed(source="embedded_assets/scalingInstructions.png")]
+			private var scalingInstrucitonsBitmap:Class;
+			
+			[Bindable][Embed(source="embedded_assets/saveButton.png")]
+			private var saveButtonBitmap:Class;
 			
 			[Bindable]
 			private var _pictureData:PictureModel
@@ -25,6 +32,8 @@
 			
 			[Bindable]
 			private var pictureBitmap:BitmapData;
+			
+			private var originalScaleX:Number = 1;
 			
 			public function get pictureData():PictureModel
 			{
@@ -69,6 +78,9 @@
 			
 			private function onTakePhotoClickHandler(event:MouseEvent):void {
 				
+				var camera:CameraUI = new CameraUI();
+				camera.addEventListener(MediaEvent.COMPLETE, onPhotoSelected);
+				camera.launch(MediaType.IMAGE);
 			}
 			
 			private function onPhotoSelected(event:MediaEvent):void {
@@ -80,6 +92,18 @@
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onImageLoaded);
 				loader.loadFilePromise(promise, loaderContext);
 				event.currentTarget.removeEventListener(MediaEvent.SELECT, onPhotoSelected);
+			}
+			
+			private function onPhotoTaken(event:MediaEvent):void {
+				
+				var promise:MediaPromise = event.data;
+				var loader:Loader = new Loader();
+				var loaderContext:LoaderContext = new LoaderContext();
+				loaderContext.imageDecodingPolicy = ImageDecodingPolicy.ON_LOAD;
+				
+				//loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onImageLoaded);
+				//loader.loadFilePromise(promise, loaderContext);
+				//event.currentTarget.removeEventListener(MediaEvent.SELECT, onPhotoTaken);
 			}
 			
 			private function onImageLoaded(event:Event):void {
@@ -118,8 +142,35 @@
 				event.currentTarget.removeEventListener(Event.COMPLETE, onImageLoaded);
 				this.currentState = "editPictureEditing";
 				scaleInitialImage();
-				//showScaleInstructions();
+				this.currentState = "scalePictureInstructions";
+				
+				Multitouch.inputMode = MultitouchInputMode.GESTURE;
+				this.imageContainer.addEventListener(TransformGestureEvent.GESTURE_ZOOM, onZoom);
+				this.imageContainer.addEventListener(TransformGestureEvent.GESTURE_PAN, onPan);
 			}
+			
+			private function onZoom(event:TransformGestureEvent):void {
+				
+				this.currentState = "scalingPicture";
+				
+				originalScaleX *= (event.scaleX);
+				
+				imageContainer.scaleX = originalScaleX;
+				imageContainer.scaleY = imageContainer.scaleX;
+			}
+			
+			private function onPan(event:TransformGestureEvent):void{
+				
+				this.currentState = "scalingPicture";
+				
+				imageContainer.x += event.offsetX;
+				imageContainer.y += event.offsetY;
+			}
+			
+			private function onDoneEditingClickHandler(event:MouseEvent):void {
+				
+			}
+			
 			private function scaleInitialImage():void {
 				
 				//minScaleX = 200/imageContainer.width;
@@ -135,7 +186,11 @@
 					}
 				}
 				
-				//originalScaleX = imageContainer.scaleX;
+				originalScaleX = imageContainer.scaleX;
+			}
+			
+			private function onHideScalingInstructions(event:EffectEvent):void {
+				this.scalingInstructions.visible = false;
 			}
 
 		]]>
@@ -148,16 +203,24 @@
 				<s:Fade targets="{addPictureLabel, getPictureFrom}" duration="500"/>
 			</s:Parallel>
 		</s:Transition>
+		<s:Transition fromState="editPictureEditing" toState="scalePictureInstructions" autoReverse="true">
+			<s:Fade target="{scalingInstructions}" duration="500"/>
+		</s:Transition>
+		<s:Transition fromState="scalePictureInstructions" toState="scalingPicture" autoReverse="true">
+			<s:Fade target="{scalingInstructions}" duration="500" effectEnd="onHideScalingInstructions(event)"/>
+		</s:Transition>
 	</s:transitions>
 	<s:states>
 		<s:State name="newPictureClosed"/>
 		<s:State name="newPictureSourceChooser"/>
 		<s:State name="editPictureClosed"/>
+		<s:State name="scalePictureInstructions"/>
+		<s:State name="scalingPicture"/>
 		<s:State name="editPictureEditing"/>
 	</s:states>
 	
 	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureSourceChooser, editPictureEditing"  click="onAddPictureClickHandler(event)">
-		<s:Rect width="768" height.newPictureClosed="473" height.newPictureSourceChooser="1280" height.editPictureEditing="1280">
+		<s:Rect width="768" height.newPictureClosed="473" height.newPictureSourceChooser="1024" height.editPictureEditing="1024">
 			<s:fill>
 				<s:SolidColor color="#242323"/>
 			</s:fill>
@@ -177,9 +240,13 @@
 			</s:Group>
 		</s:Group>
 	</s:Group>
-	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureSourceChooser">
+	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureSourceChooser, scalePictureInstructions, scalingPicture">
 		<s:Group id="imageContainer">
 			<s:BitmapImage id="image" source="{pictureBitmap}"/>
 		</s:Group>
+	</s:Group>
+	<s:BitmapImage id="scalingInstructions" x="213" y="422" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="0" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" source="{scalingInstrucitonsBitmap}"/>
+	<s:Group id="saveButton" x="690" y="985" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="1" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" click="onDoneEditingClickHandler(event)">
+		<s:BitmapImage  source="{saveButtonBitmap}"/>
 	</s:Group>
 </s:Group>

@@ -71,7 +71,7 @@
 	</s:states>
 	<s:List id="pictures" horizontalScrollPolicy="off" verticalScrollPolicy="auto" dataProvider="{_pictures}" itemRenderer="com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender"
 			height="100%" width="100%"
-			y.default="-1280" y.pictures="0" y.profileInfo="-1280"
+			y.default="-1024" y.pictures="0" y.profileInfo="-1024"
 			/>
-	<profileEditor:ProfileEditorStart id="profileStart" gestureSwipe="onStartSwipeHandler(event)" y.default="0" y.pictures="1280" y.profileInfo="-1280"/>
+	<profileEditor:ProfileEditorStart id="profileStart" gestureSwipe="onStartSwipeHandler(event)" y.default="0" y.pictures="1024" y.profileInfo="-1024"/>
 </s:Group>
