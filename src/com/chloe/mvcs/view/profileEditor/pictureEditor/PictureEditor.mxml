@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:uicomponents="com.chloe.mvcs.view.profileEditor.pictureEditor.uicomponents.*">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:uicomponents="com.chloe.mvcs.view.profileEditor.pictureEditor.uicomponents.*" xmlns:mx="library://ns.adobe.com/flex/mx">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -8,12 +8,16 @@
 	<fx:Script>
 		<![CDATA[
 			import caurina.transitions.Tweener;
+			
 			import com.chloe.mvcs.model.picture.PictureModel;
+			import com.chloe.utils.JPEGAsyncCompleteEvent;
+			import com.chloe.utils.JPEGAsyncEncoder;
 			
 			import mx.events.EffectEvent;
 			import mx.utils.StringUtil;
 			
 			import spark.core.SpriteVisualElement;
+			import spark.filters.GlowFilter;
 
 			[Bindable][Embed(source="embedded_assets/photorollButton.png")]
 			private var photoRoll:Class;
@@ -37,6 +41,7 @@
 			private var pictureBitmap:BitmapData;
 			
 			private var pictureMask:SpriteVisualElement = new SpriteVisualElement();
+			private var loadingAnimation:LoaderSpinner = new LoaderSpinner();
 			
 			private var originalScaleX:Number = 1;
 			
@@ -59,7 +64,7 @@
 						pictureMask.graphics.drawRect(0, 0, 768, 1024);
 						pictureMask.graphics.endFill();
 						this.addElement(pictureMask);
-						this.imageContainer.mask = pictureMask;
+						this.mask = pictureMask;
 					} else {
 						this.currentState == "editPictureClosed";
 						this.pictureBitmap = pictureData.rawBitmap.bitmapData;
@@ -181,10 +186,42 @@
 			
 			private function onDoneEditingClickHandler(event:MouseEvent):void {
 				
+				
+				this.currentState = "doneScaling";
+
+				var imageContainerBData:BitmapData = new BitmapData(image.width, image.height, true, 0x000000);
+				imageContainerBData.draw(image.bitmapData, null, null, null, new Rectangle(0, 0, image.width, image.height), false);
+				
+				this.currentState = "encodingImage"
+				
+			}
+			
+			private function onEncodingMessageShownHandler(event:EffectEvent):void {
+				
+				var encoder:JPEGAsyncEncoder = new JPEGAsyncEncoder(80);
+				encoder.PixelsPerIteration = 128
+				encoder.addEventListener(ProgressEvent.PROGRESS, onEncodeProgress);
+				encoder.addEventListener(JPEGAsyncCompleteEvent.JPEGASYNC_COMPLETE, onJPEGEncodeCompleteHandler);
+				
+				encoder.encode(image.bitmapData);
+			}
+			
+			private function onEncodeProgress(event:ProgressEvent):void {
+				
+				var percent:String = String(((event.bytesLoaded/event.bytesTotal)*100));
+				if(percent.indexOf(".")!=-1) {
+					percent = percent.substr(0, percent.indexOf("."));
+				}
+				encodingMessage.text = percent + "% of this image has been encoded and saved."
+			}
+			
+			private function onJPEGEncodeCompleteHandler(event:JPEGAsyncCompleteEvent):void {
+				
 				this.currentState = "editPictureClosed";
 				
+				//this.pictureData.ImageByteArrayFromFlex = event.ImageData;
 				Tweener.addTween(this.pictureMask, {y:279, time:.5, transition:"easeOutQuad"});
-				Tweener.addTween(this.pictureMask, {height:477, time:.5, transition:"easeOutQuad"});
+				Tweener.addTween(this.pictureMask, {scaleY:477/1024, time:.5, transition:"easeOutQuad"});
 			}
 			
 			private function scaleInitialImage():void {
@@ -225,8 +262,14 @@
 		<s:Transition fromState="scalePictureInstructions" toState="scalingPicture" autoReverse="true">
 			<s:Fade target="{scalingInstructions}" duration="500" effectEnd="onHideScalingInstructions(event)"/>
 		</s:Transition>
-		<s:Transition fromState="scalingPicture" toState="editPictureClosed" autoReverse="true">
-			<s:Fade target="{saveButton" duration="500"/>
+		<s:Transition fromState="scalingPicture" toState="doneScaling" autoReverse="true">
+			<s:Fade target="{saveButton}" duration="500"/>
+		</s:Transition>
+		<s:Transition fromState="doneScaling" toState="encodingImage" autoReverse="true">
+			<s:Fade target="{encodingMessaging}" duration="500" effectEnd="onEncodingMessageShownHandler(event)"/>
+		</s:Transition>
+		<s:Transition fromState="encodingImage" toState="editPictureClosed" autoReverse="true">
+			<s:Fade target="{encodingMessaging}" duration="500"/>
 		</s:Transition>
 	</s:transitions>
 	<s:states>
@@ -235,7 +278,10 @@
 		<s:State name="editPictureClosed"/>
 		<s:State name="scalePictureInstructions"/>
 		<s:State name="scalingPicture"/>
+		<s:State name="doneScaling"/>
+		<s:State name="encodingImage"/>
 		<s:State name="editPictureEditing"/>
+		
 	</s:states>
 	
 	<s:Group id="newBackground"  includeIn="newPictureClosed, newPictureSourceChooser, editPictureEditing"  click="onAddPictureClickHandler(event)">
@@ -259,7 +305,7 @@
 			</s:Group>
 		</s:Group>
 	</s:Group>
-	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureSourceChooser, scalePictureInstructions, scalingPicture">
+	<s:Group includeIn="editPictureClosed, editPictureEditing, newPictureSourceChooser, scalePictureInstructions, scalingPicture, doneScaling, encodingImage">
 		<s:Group id="imageContainer">
 			<s:BitmapImage id="image" source="{pictureBitmap}"/>
 		</s:Group>
@@ -267,5 +313,16 @@
 	<s:BitmapImage id="scalingInstructions" x="213" y="422" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="0" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" source="{scalingInstrucitonsBitmap}"/>
 	<s:Group id="saveButton" x="690" y="985" alpha.editPictureEditing="0" alpha.scalePictureInstructions="1" alpha.scalingPicture="1" alpha.editPictureClosed="0" includeIn="editPictureEditing, scalePictureInstructions, scalingPicture" click="onDoneEditingClickHandler(event)">
 		<s:BitmapImage  source="{saveButtonBitmap}"/>
+	</s:Group>
+	<s:Group id="encodingMessaging" x="209" y="422" alpha.doneScaling="0" alpha.encodingImage="1" alpha.editPictureClosed="0" includeIn="doneScaling, encodingImage, editPictureClosed" filters="{[new spark.filters.GlowFilter(0x000000, .75, 10, 10, 1, 2)]}">
+		<s:Rect width="350" height="100">
+			<s:fill>
+				<s:SolidColor color="#242323"/>
+			</s:fill>
+		</s:Rect>
+		<s:Group horizontalCenter="0" verticalCenter="0">
+			
+			<s:Label id="encodingMessage" text="encoding and saving your image" styleName="AddProfileLabel"/>
+		</s:Group>
 	</s:Group>
 </s:Group>

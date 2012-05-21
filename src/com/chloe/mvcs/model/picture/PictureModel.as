@@ -5,12 +5,14 @@ package com.chloe.mvcs.model.picture
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.geom.Rectangle;
+	import flash.utils.ByteArray;
 	
 	public class PictureModel extends EventDispatcher
 	{
 		public var id:String;
 		public var rawPath:String;
 		public var rawBitmap:Bitmap;
+		public var rawByteArray:ByteArray;
 		public var scale:Number;
 		public var cropX:Number;
 		public var cropY:Number;
@@ -40,6 +42,11 @@ package com.chloe.mvcs.model.picture
 			}
 			
 			return $temp;
+		}
+		
+		public function set ImageByteArrayFromFlex(value:ByteArray):void {
+			
+			this.ImageByteArrayFromFlex = value;
 		}
 
 		private function convertTagToVector():Vector.<TagHistoryModel> {
