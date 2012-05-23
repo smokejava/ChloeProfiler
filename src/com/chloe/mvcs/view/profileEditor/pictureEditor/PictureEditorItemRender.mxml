@@ -18,11 +18,19 @@
 			
 			override public function set data(value:Object):void {
 				
+				pictureEditor.addEventListener(PictureChangeEvent.PICTURE_EDIT_COMPLETE, onPictureChangeCompleteHandler);
 				pictureData = value as PictureHistoryModel;
 				picture = pictureData.picture;
 
 			}
+			
+			private function onPictureChangeCompleteHandler(event:PictureChangeEvent):void {
+				
+				var temp:PictureHistoryModel = new PictureHistoryModel();
+				temp.picture = event.pictureModel;
+				dispatchEvent(new PictureSaveEvent(PictureSaveEvent.SAVE_PICTURE, temp));
+			}
 		]]>
 	</fx:Script>
-	<pictureEditor:PictureEditor pictureData="{picture}"/>
+	<pictureEditor:PictureEditor id="pictureEditor" pictureData="{picture}"/>
 </s:ItemRenderer>

@@ -4,6 +4,8 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.ClientContextView;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditor;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender
+	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRenderMediator;
 	import com.chloe.mvcs.view.search.SearchProfileInput;
 	import com.chloe.mvcs.view.search.SearchProfileInputMediator;
 	import com.chloe.mvcs.view.search.SearchView;
@@ -53,6 +55,7 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(SearchProfileInput, SearchProfileInputMediator);
 			mediatorMap.mapView(SearchView, SearchViewMediator);
 			mediatorMap.mapView(ProfileEditor, ProfileEditorMediator);
+			mediatorMap.mapView(PictureEditorItemRender, PictureEditorItemRenderMediator);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*" addedToStage="onAddedToStageHandler(event)">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*" addedToStage="onAddedToStageHandler(event)" xmlns:names="com.chloe.mvcs.view.profileEditor.names.*" xmlns:generalInfo="com.chloe.mvcs.view.profileEditor.generalInfo.*" xmlns:addresses="com.chloe.mvcs.view.profileEditor.addresses.*" xmlns:phoneNumbers="com.chloe.mvcs.view.profileEditor.phoneNumbers.*" xmlns:emailAddresses="com.chloe.mvcs.view.profileEditor.emailAddresses.*" xmlns:instantMessengerAccounts="com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.*" xmlns:facebook="com.chloe.mvcs.view.profileEditor.facebook.*" xmlns:googlePlusAccounts="com.chloe.mvcs.view.profileEditor.googlePlusAccounts.*" xmlns:myspaceAccounts="com.chloe.mvcs.view.profileEditor.myspaceAccounts.*" xmlns:instagramAccounts="com.chloe.mvcs.view.profileEditor.instagramAccounts.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -31,7 +31,17 @@
 				
 				_pictures = _profileToEdit._pictures as ArrayCollection;
 				trace("length", _pictures.length);
-			};
+			}
+			
+			public function addNewPhoto(aPictureHistory:PictureHistoryModel):void {
+				
+				_pictures = new ArrayCollection();
+				var tempPictureHistory:PictureHistoryModel = new PictureHistoryModel();
+				tempPictureHistory.picture = new PictureModel();
+				_profileToEdit._pictures.addItemAt(tempPictureHistory, _pictures.length);
+				
+				_pictures.addItemAt(aPictureHistory, _pictures.length);
+			}
 			
 			private function onAddedToStageHandler(event:Event):void {
 				
@@ -57,10 +67,10 @@
 	
 	<s:transitions>
 		<s:Transition fromState="default" toState="pictures">
-			<s:Move targets="{profileStart, pictures}" duration="500"/>
+			<s:Move targets="{profileStart, pictures, profileInfo}" duration="500"/>
 		</s:Transition>
 		<s:Transition fromState="default" toState="profileInfo">
-			<s:Move targets="{profileStart, pictures}" duration="500"/>
+			<s:Move targets="{profileStart, pictures, profileInfo}" duration="500"/>
 		</s:Transition>
 	</s:transitions>
 	
@@ -74,4 +84,18 @@
 			y.default="-1024" y.pictures="0" y.profileInfo="-1024"
 			/>
 	<profileEditor:ProfileEditorStart id="profileStart" gestureSwipe="onStartSwipeHandler(event)" y.default="0" y.pictures="1024" y.profileInfo="-1024"/>
+	<s:Scroller id="profileInfo" width="768" height="1024" y.default="1024" y.pictures="1024" y.profileInfo="0">
+		<s:VGroup>
+			<generalInfo:GeneralInfoEditorPod/>
+			<names:NameEditorPod/>
+			<addresses:AddressEditorPod/>
+			<phoneNumbers:PhoneNumbersEditorPod/>
+			<emailAddresses:EmailAddressEditorPod/>
+			<instantMessengerAccounts:InstantMessengerAccountsEditorPod/>
+			<facebook:FacebookAccountsEditorPod/>
+			<googlePlusAccounts:GooglePlusAccountsEditorPod/>
+			<myspaceAccounts:MySpaceAccountsEditroPod/>
+			<instagramAccounts:InstaGramsAccountsEditorPod/>
+		</s:VGroup>
+	</s:Scroller>
 </s:Group>

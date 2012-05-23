@@ -29,3 +29,13 @@ s|Label.QuestionLabel {
 	kerning				: true;
 	trackingLeft		: -1;
 }
+
+s|Label.EditorPodTitle {
+	
+	fontFamily			: HelveticaNeueBold;
+	color				: #333333;
+	fontWeight			: bold;
+	fontSize			: 30;
+	kerning				: true;
+	trackingLeft		: -1;
+}

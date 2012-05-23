@@ -221,7 +221,12 @@
 				
 				//this.pictureData.ImageByteArrayFromFlex = event.ImageData;
 				Tweener.addTween(this.pictureMask, {y:279, time:.5, transition:"easeOutQuad"});
-				Tweener.addTween(this.pictureMask, {scaleY:477/1024, time:.5, transition:"easeOutQuad"});
+				Tweener.addTween(this.pictureMask, {scaleY:477/1024, time:.5, transition:"easeOutQuad", onComplete:finishClosingEditingHandler});
+			}
+			
+			private function finishClosingEditingHandler():void {
+				
+				dispatchEvent(new PictureChangeEvent(PictureChangeEvent.PICTURE_EDIT_COMPLETE, this.pictureData));
 			}
 			
 			private function scaleInitialImage():void {
