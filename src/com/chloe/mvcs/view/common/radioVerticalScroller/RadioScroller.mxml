@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import mx.collections.ArrayCollection;
+			
+			import spark.layouts.VerticalLayout;
+			
+			[Bindable]
+			private var _height:Number;
+			
+			[Bindable]
+			private var _width:Number;
+			
+			private var _dataProvider:ArrayCollection;
+			private var _items:ArrayCollection = new ArrayCollection();
+			override public function set width(value:Number):void {
+				
+				_width = value;
+			}
+			
+			override public function set height(value:Number):void {
+				
+				_height = value;
+			}
+			
+			public function set dataProvider(value:ArrayCollection):void {
+				
+				_dataProvider = value;
+				
+				if(_items.length>0) {
+					
+					var d:int = 0;
+					var e:int = _items.length;
+					for(;d<e;d++) {
+						
+						horizontalGroup.removeElement(_items[d]);
+					}
+					
+					_items = new ArrayCollection();
+				}  
+				
+				var a:int = 0;
+				var b:int = _dataProvider.length;
+				trace(_dataProvider.length);
+
+				for(;a<b;a++){
+					this._items.addItem(new RadioScrollItem());
+					this._items[this._items.length-1].radioId = a;
+					trace(this._items[this._items.length-1].radioId)
+					this._items[this._items.length-1].caption = _dataProvider[a];
+					//this._items[this._items.length-1].addEventListner(Event.SELECT, onItemSelectedHandler);
+					horizontalGroup.addElement(this._items[this._items.length-1]);
+				}
+			}
+			
+			public function reasonSelected(radioId:int):void {
+				
+				for each(var aRadioItem:RadioScrollItem in this._items) {
+					
+					if(aRadioItem.radioId == radioId) {
+						
+						aRadioItem.selected = true;
+					} else {
+						
+						aRadioItem.selected = false;
+					}
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="hasScrolling"/>
+		<s:State name="hasNoScrolling"/>
+	</s:states>
+	<s:Scroller width="{_width}">
+		<s:HGroup id="horizontalGroup" gap="7"/>
+	</s:Scroller>
+
+</s:Group>

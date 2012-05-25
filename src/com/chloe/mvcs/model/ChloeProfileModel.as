@@ -29,7 +29,7 @@ package com.chloe.mvcs.model
 		public var picturesToServer:Array = new Array();
 		public var picturesToFlex:Array = new Array();
 		
-		private var _names:Vector.<FullNameHistoryModel> = new Vector.<FullNameHistoryModel>();
+		private var _names:ArrayCollection = new ArrayCollection();
 		public var namesToServer:Array = new Array();
 		public var namesToFlex:Array = new Array();
 		
@@ -85,7 +85,7 @@ package com.chloe.mvcs.model
 		
 		private function addTestData():void {
 			
-			/*var nameHistory:FullNameHistoryModel = new FullNameHistoryModel();
+			var nameHistory:FullNameHistoryModel = new FullNameHistoryModel();
 			
 			var name:FullNameModel = new FullNameModel();
 			var namePiece:NameModel = new NameModel();
@@ -100,7 +100,16 @@ package com.chloe.mvcs.model
 			lastPiece.name = "Hill"
 			name.lastName = lastPiece;
 			nameHistory.fullName = name;
-				
+			
+			var sDate:DateModel = new DateModel();
+			sDate.month = "December";
+			sDate.day = "31";
+			sDate.year = "1982";
+			nameHistory.startDate = sDate;
+			nameHistory.endDate = sDate;
+			
+			_names.addItem(nameHistory);
+			/*
 			nameHistory.fullName = name;
 			
 			var pictureHistory:PictureHistoryModel = new PictureHistoryModel();
@@ -202,11 +211,11 @@ package com.chloe.mvcs.model
 			_addresses = value;
 		}
 
-		public function get names():Vector.<FullNameHistoryModel>{
+		public function get names():ArrayCollection{
 			return _names;
 		}
 
-		public function set names(value:Vector.<FullNameHistoryModel>):void{
+		public function set names(value:ArrayCollection):void{
 			_names = value;
 		}
 		

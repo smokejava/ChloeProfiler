@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="565" y.hide="1024" y.show="459" xmlns:view="com.chloe.mvcs.view.*" xmlns:common="com.chloe.mvcs.view.common.*" xmlns:radioVerticalScroller="com.chloe.mvcs.view.common.radioVerticalScroller.*">
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
+			
+			import mx.collections.ArrayCollection;
+			import mx.utils.StringUtil;
+			
+			import spark.filters.DropShadowFilter;
+			
+			[Bindable][Embed(source="embedded_assets/saveButton.png")]
+			private var saveButtonBitmap:Class;
+			
+			[Bindable][Embed(source="embedded_assets/cancelButton.png")]
+			private var cancelButtonBitmap:Class;
+			
+			[Bindable]
+			private var fullName:String;
+			
+			[Bindable]
+			private var reasons:ArrayCollection = new ArrayCollection(["born with", "got married", "got divorced", "mom got remarried", "legally change it"]);
+			
+			private var _nameHistory:FullNameHistoryModel
+			
+			public function set nameHistory(value:FullNameHistoryModel):void {
+				
+				_nameHistory = value;
+
+				if(StringUtil.trim(_nameHistory.fullName.middle1Name.name).length>0 && StringUtil.trim(_nameHistory.fullName.middle2Name.name).length>0) {
+					
+					fullName = _nameHistory.fullName.firstName.name + " " + _nameHistory.fullName.middle1Name.name + " " + _nameHistory.fullName.middle2Name.name + " " + _nameHistory.fullName.lastName.name
+				} else if(StringUtil.trim(_nameHistory.fullName.middle1Name.name).length>0) {
+					
+					fullName = _nameHistory.fullName.firstName.name + " " + _nameHistory.fullName.middle1Name.name + " " + _nameHistory.fullName.lastName.name
+				} else if(StringUtil.trim(_nameHistory.fullName.middle2Name.name).length>0) {
+					
+					fullName = _nameHistory.fullName.firstName.name + " " +  _nameHistory.fullName.middle2Name.name + " " + _nameHistory.fullName.lastName.name
+				} else {
+					fullName = _nameHistory.fullName.firstName.name + " " + _nameHistory.fullName.lastName.name
+				}
+			}
+			
+			public function reasonSelected(radioId:int):void {
+				
+				reasonsRadio.reasonSelected(radioId);
+				
+			}
+			
+			private function onDoneEditingClickHandler(event:MouseEvent):void {
+				
+			}
+			
+			private function onCancelClickHandler(event:MouseEvent):void {
+				
+				this.currentState = "hide";
+			}
+			
+			protected function textinput1_focusInHandler(event:FocusEvent):void
+			{
+				// TODO Auto-generated method stub
+				//nameInput.requestSoftKeyboard()
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="hide"/>
+		<s:State name="show"/>
+	</s:states>
+	<s:transitions>
+		<s:Transition fromState="hide" toState="show" autoReverse="true">
+			<s:Move target="{this}" duration="500"/>
+		</s:Transition>
+	</s:transitions>
+
+	<s:Group>
+		<s:Rect width="1024" height="565" filters="{[new spark.filters.DropShadowFilter(2, -90, 0x000000, .56, 4, 4, 1, 2)]}">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:Group id="saveButton" click="onDoneEditingClickHandler(event)">
+				<s:BitmapImage  source="{saveButtonBitmap}"/>
+			</s:Group>
+			<s:Group id="cancelButton" click="onCancelClickHandler(event)">
+				<s:BitmapImage  source="{cancelButtonBitmap}"/>
+			</s:Group>
+		</s:Group>
+		<s:Group  left="30" top="100" bottom="10" right="10">
+			<s:layout>
+				<s:VerticalLayout gap="20"/>
+			</s:layout>
+		
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10"/>
+				</s:layout>
+				<s:Label text="NAME" styleName="EditorTitle"/>
+				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{fullName}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what their name?" top="16" styleName="searchInput" focusIn="textinput1_focusInHandler(event)" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+			</s:Group>
+			
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10"/>
+				</s:layout>
+				<s:Label text="REASON FOR THE NAME CHANGE" styleName="EditorTitle"/>
+				<radioVerticalScroller:RadioScroller id="reasonsRadio" dataProvider="{reasons}" width="700"/>
+			</s:Group>
+			<s:Group>
+				<s:layout>
+					<s:HorizontalLayout gap="40"/>
+				</s:layout>
+				<s:Group>
+					<s:Label text="STARTED USING THIS NAME" styleName="EditorTitle"/>
+				</s:Group>
+				
+				<s:Group>
+					<s:Label text="STOPPED USING THIS NAME" styleName="EditorTitle"/>
+				</s:Group>
+			</s:Group>
+		</s:Group>
+		
+	</s:Group>
+		
+
+</s:Group>

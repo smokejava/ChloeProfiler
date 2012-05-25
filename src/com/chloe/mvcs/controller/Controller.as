@@ -2,9 +2,17 @@ package com.chloe.mvcs.controller
 {
 	import com.chloe.mvcs.view.ClientContextMediator;
 	import com.chloe.mvcs.view.ClientContextView;
+	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
+	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItemMediator;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditor;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditorMediator;
-	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender
+	import com.chloe.mvcs.view.profileEditor.names.NameEditor;
+	import com.chloe.mvcs.view.profileEditor.names.NameEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.names.NameEditorPod;
+	import com.chloe.mvcs.view.profileEditor.names.NameEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.names.NameItemRenderer;
+	import com.chloe.mvcs.view.profileEditor.names.NameItemRendererMediator;
+	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender;
 	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRenderMediator;
 	import com.chloe.mvcs.view.search.SearchProfileInput;
 	import com.chloe.mvcs.view.search.SearchProfileInputMediator;
@@ -56,6 +64,10 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(SearchView, SearchViewMediator);
 			mediatorMap.mapView(ProfileEditor, ProfileEditorMediator);
 			mediatorMap.mapView(PictureEditorItemRender, PictureEditorItemRenderMediator);
+			mediatorMap.mapView(NameEditorPod, NameEditorPodMediator);
+			mediatorMap.mapView(NameEditor, NameEditorMediator);
+			mediatorMap.mapView(RadioScrollItem, RadioScrollItemMediator);
+			mediatorMap.mapView(NameItemRenderer, NameItemRendererMediator);
 		}
 	}
 }

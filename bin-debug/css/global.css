@@ -6,7 +6,7 @@ s|TextInput.searchInput {
 	 fontFamily			: TimesItalic;
 	 fontSize			: 24;
 	 color				: #c5c3c3;
-	 fontStyle			: italic;;
+	 fontStyle			: italic;
 }
 
 s|Label.AddProfileLabel {
@@ -16,7 +16,7 @@ s|Label.AddProfileLabel {
 	fontWeight			: bold;
 	fontSize			: 14;
 	lineHeight			: 13;
-	kerning				: true;
+	kerning				: on;
 	trackingLeft		: -1;
 }
 
@@ -26,7 +26,7 @@ s|Label.QuestionLabel {
 	color				: #f7f8fa;
 	fontWeight			: bold;
 	fontSize			: 16;
-	kerning				: true;
+	kerning				: on;
 	trackingLeft		: -1;
 }
 
@@ -36,6 +36,50 @@ s|Label.EditorPodTitle {
 	color				: #333333;
 	fontWeight			: bold;
 	fontSize			: 30;
-	kerning				: true;
+	kerning				: on;
 	trackingLeft		: -1;
+}
+
+s|Label.ItemTitle {
+	fontFamily			: HelveticaNeueBold;
+	color				: #333333;
+	fontWeight			: bold;
+	fontSize			: 24;
+	kerning				: on;
+	trackingLeft		: -1;
+}
+
+s|Label.ItemSubTitle {
+	fontFamily			: TimesItalic;
+	fontSize			: 16;
+	color				: #363535;
+	fontStyle			: italic;
+}
+
+s|Label.EditorTitle {
+	
+	fontFamily			: HelveticaNeueBold;
+	color				: #898787;
+	fontWeight			: bold;
+	fontSize			: 20;
+	kerning				: on;
+	trackingLeft		: -1;
+}
+
+s|Label.RadioItem {
+	fontFamily			: TimesItalic;
+	fontSize			: 16;
+	color				: #363636;
+	fontStyle			: italic;
+	kerning				: on;
+	trackingLeft		: -1
+}
+
+s|Label.RadioItemSelected {
+	fontFamily			: TimesItalic;
+	fontSize			: 16;
+	color				: #FFFFFF;
+	fontStyle			: italic;
+	kerning				: on;
+	trackingLeft		: -1
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height.closed="300" height.opened="450" left="20" >
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height.closed="300" height.opened="450">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
 	<fx:Script>
 		<![CDATA[
+			import com.chloe.mvcs.view.profileEditor.names.NameItemRenderer;
 			
 			[Bindable]
 			private var _podTitle:String = "Default";
@@ -19,6 +20,7 @@
 			
 			protected function onAddClickHandler(eveet:MouseEvent):void {
 
+				
 			}
 			
 			
@@ -29,10 +31,10 @@
 		<s:State name="opened"/>
 	</s:states>
 	<s:layout>
-		<s:VerticalLayout gap="10"/>
+		<s:VerticalLayout gap="10" paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15"/>
 	</s:layout>
-	<s:Label top="10" left="10" text="{_podTitle}" styleName="EditorPodTitle"/>
+	<s:Label top="10" left="20" text="{_podTitle}" styleName="EditorPodTitle"/>
 	<s:Group id="addButton" click="onAddClickHandler(event)">
-		<s:BitmapImage  source="{_addButtonImageSource}" left="10"/>
+		<s:BitmapImage  source="{_addButtonImageSource}"/>
 	</s:Group>
 </s:Group>

@@ -20,10 +20,14 @@
 			[Bindable]
 			private var _pictures:ArrayCollection = new ArrayCollection();
 			
+			[Bindable]
+			private var _nameHistories:ArrayCollection = new ArrayCollection();
+			
 			public function get profileToEdit():ChloeProfileModel				{ return _profileToEdit};
 			public function set profileToEdit(value:ChloeProfileModel):void {
 				
 				_profileToEdit = value;
+				_nameHistories = _profileToEdit.names;
 			
 				var tempPictureHistory:PictureHistoryModel = new PictureHistoryModel();
 				tempPictureHistory.picture = new PictureModel();
@@ -87,7 +91,7 @@
 	<s:Scroller id="profileInfo" width="768" height="1024" y.default="1024" y.pictures="1024" y.profileInfo="0">
 		<s:VGroup>
 			<generalInfo:GeneralInfoEditorPod/>
-			<names:NameEditorPod/>
+			<names:NameEditorPod nameHistories="{_nameHistories}"/>
 			<addresses:AddressEditorPod/>
 			<phoneNumbers:PhoneNumbersEditorPod/>
 			<emailAddresses:EmailAddressEditorPod/>
@@ -98,4 +102,5 @@
 			<instagramAccounts:InstaGramsAccountsEditorPod/>
 		</s:VGroup>
 	</s:Scroller>
+	<names:NameEditor/>
 </s:Group>
