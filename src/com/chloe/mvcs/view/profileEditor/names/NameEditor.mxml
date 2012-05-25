@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="565" y.hide="1024" y.show="459" xmlns:view="com.chloe.mvcs.view.*" xmlns:common="com.chloe.mvcs.view.common.*" xmlns:radioVerticalScroller="com.chloe.mvcs.view.common.radioVerticalScroller.*">
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="565" y.hide="1024" y.show="459" xmlns:view="com.chloe.mvcs.view.*" xmlns:common="com.chloe.mvcs.view.common.*" xmlns:radioVerticalScroller="com.chloe.mvcs.view.common.radioVerticalScroller.*" xmlns:dragCombobox="com.chloe.mvcs.view.common.dragCombobox.*" addedToStage="onAddedToStageHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
@@ -23,11 +23,22 @@
 			[Bindable]
 			private var reasons:ArrayCollection = new ArrayCollection(["born with", "got married", "got divorced", "mom got remarried", "legally change it"]);
 			
+			[Bindable]
+			private var months:ArrayCollection = new ArrayCollection(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+			
+			[Bindable]
+			private var days:ArrayCollection;
+			
+			[Bindable]
+			private var years:ArrayCollection;
+			
 			private var _nameHistory:FullNameHistoryModel
 			
 			public function set nameHistory(value:FullNameHistoryModel):void {
 				
 				_nameHistory = value;
+				
+				
 
 				if(StringUtil.trim(_nameHistory.fullName.middle1Name.name).length>0 && StringUtil.trim(_nameHistory.fullName.middle2Name.name).length>0) {
 					
@@ -49,19 +60,45 @@
 				
 			}
 			
-			private function onDoneEditingClickHandler(event:MouseEvent):void {
+			private function onAddedToStageHandler(event:Event):void {
+				makeDays();
+				makeYears();
 				
+				this.startDays.dataProvider = this.days;
+				this.startYears.dataProvider = this.years;
+				this.endDays.dataProvider = this.days;
+				this.endYears.dataProvider = this.years;
+			}
+			
+			private function onSaveClickHandler(event:MouseEvent):void {
+				
+				this.currentState = "hide";
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
 			}
+
+			private function makeDays():void {
+				
+				this.days = new ArrayCollection()
+				var a:int = 1;
+				var b:int = 32;
+				for(;a<b;a++) {
+					
+					this.days.addItem(a.toString());
+				}
+			}
 			
-			protected function textinput1_focusInHandler(event:FocusEvent):void
-			{
-				// TODO Auto-generated method stub
-				//nameInput.requestSoftKeyboard()
+			private function makeYears():void {
+				
+				this.years = new ArrayCollection()
+				var a:int = new Date().fullYear - 110;
+				var b:int = new Date().fullYear + 50;
+				for(;a<b;a++) {
+					this.years.addItem(a.toString());
+				}
 			}
 			
 		]]>
@@ -90,7 +127,7 @@
 			<s:layout>
 				<s:HorizontalLayout/>
 			</s:layout>
-			<s:Group id="saveButton" click="onDoneEditingClickHandler(event)">
+			<s:Group id="saveButton" click="onSaveClickHandler(event)">
 				<s:BitmapImage  source="{saveButtonBitmap}"/>
 			</s:Group>
 			<s:Group id="cancelButton" click="onCancelClickHandler(event)">
@@ -107,7 +144,7 @@
 					<s:VerticalLayout gap="10"/>
 				</s:layout>
 				<s:Label text="NAME" styleName="EditorTitle"/>
-				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{fullName}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what their name?" top="16" styleName="searchInput" focusIn="textinput1_focusInHandler(event)" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{fullName}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what their name?" top="16" styleName="searchInput" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 			</s:Group>
 			
 			<s:Group>
@@ -122,11 +159,27 @@
 					<s:HorizontalLayout gap="40"/>
 				</s:layout>
 				<s:Group>
-					<s:Label text="STARTED USING THIS NAME" styleName="EditorTitle"/>
+					<s:Group y="5">
+						<s:layout>
+							<s:HorizontalLayout gap="3"/>
+						</s:layout>
+						<dragCombobox:DragComboBox dataProvider="{months}" totalWidth="90"/>
+						<dragCombobox:DragComboBox id="startDays" dataProvider="{days}" totalWidth="30"/>
+						<dragCombobox:DragComboBox id="startYears" dataProvider="{years}" totalWidth="50"/>
+					</s:Group>
+					<s:Label y="0" text="STARTED USING THIS NAME" styleName="EditorTitle"/>
 				</s:Group>
 				
 				<s:Group>
-					<s:Label text="STOPPED USING THIS NAME" styleName="EditorTitle"/>
+					<s:Group y="5">
+						<s:layout>
+							<s:HorizontalLayout gap="3"/>
+						</s:layout>
+						<dragCombobox:DragComboBox dataProvider="{months}" totalWidth="90"/>
+						<dragCombobox:DragComboBox id="endDays" dataProvider="{days}" totalWidth="30"/>
+						<dragCombobox:DragComboBox id="endYears" dataProvider="{years}" totalWidth="50"/>
+					</s:Group>
+					<s:Label y="0" text="STOPPED USING THIS NAME" styleName="EditorTitle"/>
 				</s:Group>
 			</s:Group>
 		</s:Group>

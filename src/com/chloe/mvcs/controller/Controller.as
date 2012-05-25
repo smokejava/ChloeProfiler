@@ -6,6 +6,8 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItemMediator;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditor;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditor
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditor;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorPod;
@@ -68,6 +70,7 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(NameEditor, NameEditorMediator);
 			mediatorMap.mapView(RadioScrollItem, RadioScrollItemMediator);
 			mediatorMap.mapView(NameItemRenderer, NameItemRendererMediator);
+			mediatorMap.mapView(AddressEditor, AddressEditorMediator);
 		}
 	}
 }

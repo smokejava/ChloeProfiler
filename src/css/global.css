@@ -68,7 +68,7 @@ s|Label.EditorTitle {
 
 s|Label.RadioItem {
 	fontFamily			: TimesItalic;
-	fontSize			: 16;
+	fontSize			: 18;
 	color				: #363636;
 	fontStyle			: italic;
 	kerning				: on;
@@ -77,7 +77,7 @@ s|Label.RadioItem {
 
 s|Label.RadioItemSelected {
 	fontFamily			: TimesItalic;
-	fontSize			: 16;
+	fontSize			: 18;
 	color				: #FFFFFF;
 	fontStyle			: italic;
 	kerning				: on;

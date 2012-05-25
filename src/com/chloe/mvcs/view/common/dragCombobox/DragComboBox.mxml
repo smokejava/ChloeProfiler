@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import caurina.transitions.Tweener;
+			import mx.collections.ArrayCollection;
+			
+			import spark.core.SpriteVisualElement;
+			import spark.layouts.VerticalLayout;
+			
+			[Bindable]
+			private var _totalWidth:int = 0;
+			
+			private var _dataProvider:ArrayCollection = new ArrayCollection();
+			private var _items:ArrayCollection = new ArrayCollection();
+			private var startY:Number = new Number();
+			
+			public function get totalWidth():int 				{return _totalWidth};
+			public function set totalWidth(value:int):void		{_totalWidth = value};
+			
+			public function set dataProvider(value:ArrayCollection):void {
+
+				if(value.length>0) {
+					
+					_dataProvider = value;
+					
+					if(this._items.length>0) {
+						
+						var d:int = 0;
+						var e:int = this._items.length;
+						for(;d<e;d++) {
+							
+							this._items[d].removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownHandler);
+							draggingGroup.removeElement(this._items[d]);
+							
+						}
+						
+						this._items = new ArrayCollection();
+					}
+					
+					var a:int = 0;
+					var b:int = _dataProvider.length;
+					for(;a<b;a++) {
+						
+						this._items.addItem(new DraggingComboboxItemRenderer());
+						this._items[this._items.length-1].data = _dataProvider[a];
+						draggingGroup.addElement(this._items[this._items.length-1]);
+						this._items[this._items.length-1].addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownHandler);
+					}
+					
+					
+					a = 0;
+					var widest:int = 0;
+					for(;a<b;a++) {
+						
+						if(this._items[a].labelWidth > widest) {
+							
+							widest = this._items[a].labelWidth;
+						}					
+					}
+					
+					a = 0;
+					for(;a<b;a++) {
+						
+						this._items[a].widest = _totalWidth;
+					}
+				}
+			};
+			
+			private function onMouseDownHandler(event:MouseEvent):void {
+				
+				this.startY = event.stageY;
+				this.stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
+				this.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpHandler);
+			}
+			
+			private function onEnterFrameHandler(event:Event):void {
+				
+				draggingGroup.y += this.stage.mouseY  - this.startY;
+				
+				if(draggingGroup.y >55) {
+					draggingGroup.y = 55
+				}
+
+				if(draggingGroup.y < -(this.draggingGroup.height - 70)) {
+					
+					draggingGroup.y = -(this.draggingGroup.height - 70)
+				}
+				this.startY = this.stage.mouseY
+			}
+			
+			private function onMouseUpHandler(event:MouseEvent):void {
+				
+				var itemPosition:int = Math.round(Math.abs(this.draggingGroup.y/30)) 
+					trace(itemPosition);
+				Tweener.addTween(this.draggingGroup, {y:(-(itemPosition+1)* 30) + 35, time:.5, transition:"easeOutQuad"});
+				this.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
+				this.stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpHandler);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="dragging"/>
+	</s:states>
+	<s:Group>
+		<s:VGroup id="draggingGroup" y="35" gap="0"/>
+	</s:Group>
+	<s:Rect id="topFade" width="{_totalWidth}" height="40">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#FFFFFF" alpha="1" ratio=".25"/>
+				<s:GradientEntry color="#FFFFFF" alpha="0"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Rect id="bottomFade" width="{_totalWidth}" height="40" y="60">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#FFFFFF" alpha="0" ratio=".25"/>
+				<s:GradientEntry color="#FFFFFF" alpha="1"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:mask>
+		<s:Group>
+			<s:Rect id="overMask" width="{_totalWidth}" height="90">
+				<s:fill>
+					<s:SolidColor color="#FF0000"/>
+				</s:fill>
+			</s:Rect>
+		</s:Group>
+	</s:mask>
+</s:Group>
