@@ -6,14 +6,24 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItemMediator;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditor;
 	import com.chloe.mvcs.view.profileEditor.ProfileEditorMediator;
-	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditor
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditor;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPod;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditor;
+	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorPod;
+	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorPodMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditor;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorPod;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorPodMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameItemRenderer;
 	import com.chloe.mvcs.view.profileEditor.names.NameItemRendererMediator;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditor;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumbersEditorPod;
 	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender;
 	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRenderMediator;
 	import com.chloe.mvcs.view.search.SearchProfileInput;
@@ -71,6 +81,11 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(RadioScrollItem, RadioScrollItemMediator);
 			mediatorMap.mapView(NameItemRenderer, NameItemRendererMediator);
 			mediatorMap.mapView(AddressEditor, AddressEditorMediator);
+			mediatorMap.mapView(AddressEditorPod, AddressEditorPodMediator);
+			mediatorMap.mapView(PhoneNumbersEditorPod, PhoneNumberEditorPodMediator);
+			mediatorMap.mapView(PhoneNumberEditor, PhoneNumberEditorMediator);
+			mediatorMap.mapView(EmailAddressEditorPod, EmailAddressEditorPodMediator);
+			mediatorMap.mapView(EmailAddressEditor, EmailAddressEditorMediator);
 		}
 	}
 }

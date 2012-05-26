@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<profileEditor:EditorPod xmlns:fx="http://ns.adobe.com/mxml/2009" 
-						 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:profileEditor="com.chloe.mvcs.view.profileEditor.*" width="100%" height="300" podTitle="Email Addresses" addButtonImageSource="embedded_assets/AddEmailButton.png">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="300" addedToStage="addedToStageHandler(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-</profileEditor:EditorPod>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.email.EmailHistoryModel;
+			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var _nameHistories:ArrayCollection;
+			
+			[Bindable]
+			private var _podTitle:String = "Email Addresses";
+			
+			[Bindable]
+			private var _addButtonImageSource:String = "embedded_assets/AddEmailButton.png";
+			
+			public function set nameHistories(value:ArrayCollection):void 			{
+				_nameHistories = value
+			};
+			
+			
+			protected function addedToStageHandler(event:Event):void
+			{
+				//listings.itemRenderer = com.chloe.mvcs.view.profileEditor.names.NameItemRenderer as IFactory;
+			}
+			
+			private function onAddedButtonClickHandler(event:MouseEvent):void {
+				
+				dispatchEvent(new EmailAddressEvent(EmailAddressEvent.ADD_EMAIL_ADDRESS, new EmailHistoryModel()));
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="closed"/>
+		<s:State name="opened"/>
+	</s:states>
+	<s:layout>
+		<s:VerticalLayout gap="10" paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15"/>
+	</s:layout>
+	<s:Label top="10" left="20" text="{_podTitle}" styleName="EditorPodTitle"/>
+	<s:Group id="addButton" click="onAddedButtonClickHandler(event)">
+		<s:BitmapImage  source="{_addButtonImageSource}"/>
+	</s:Group>
+	<s:List id="listings" width="100%" height="100%" itemRenderer="com.chloe.mvcs.view.profileEditor.names.NameItemRenderer" dataProvider="{_nameHistories}" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+</s:Group>

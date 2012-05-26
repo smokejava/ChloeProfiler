@@ -103,4 +103,7 @@
 		</s:VGroup>
 	</s:Scroller>
 	<names:NameEditor/>
+	<addresses:AddressEditor/>
+	<phoneNumbers:PhoneNumberEditor/>
+	<emailAddresses:EmailAddressEditor/>
 </s:Group>

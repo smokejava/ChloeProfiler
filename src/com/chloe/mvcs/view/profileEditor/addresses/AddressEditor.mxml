@@ -18,9 +18,15 @@
 			[Bindable][Embed(source="embedded_assets/cancelButton.png")]
 			private var cancelButtonBitmap:Class;
 			
+			[Bindable][Embed(source="embedded_assets/verifyAddressButton.png")]
+			private var verifyAddressButtonBitmap:Class;
+			
 			[Bindable]
 			private var address:String;
 
+			[Bindable]
+			private var addressTypes:ArrayCollection = new ArrayCollection(["personal", "business"]);
+			
 			[Bindable]
 			private var months:ArrayCollection = new ArrayCollection(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
 			
@@ -56,6 +62,10 @@
 			private function onCancelClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+			}
+			
+			private function onVerifyAddressClickHandler(event:MouseEvent):void {
+				
 			}
 			
 			private function makeDays():void {
@@ -122,9 +132,23 @@
 					<s:VerticalLayout gap="10"/>
 				</s:layout>
 				<s:Label text="ADDRESS" styleName="EditorTitle"/>
-				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+				<s:Group>
+					<s:layout>
+						<s:HorizontalLayout gap="7"/>
+					</s:layout>
+					<s:TextInput id="nameInput" width="600" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+					<s:Group id="verifyAddressButton" click="onVerifyAddressClickHandler(event)" verticalCenter="0">
+						<s:BitmapImage  source="{verifyAddressButtonBitmap}"/>
+					</s:Group>
+				</s:Group>
 			</s:Group>
-
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10"/>
+				</s:layout>
+				<s:Label text="WHAT TPYE OF ADDRESS IS/WAS THIS?" styleName="EditorTitle"/>
+				<radioVerticalScroller:RadioScroller id="typeRadio" dataProvider="{addressTypes}" width="200"/>
+			</s:Group>
 			<s:Group>
 				<s:layout>
 					<s:HorizontalLayout gap="40"/>
