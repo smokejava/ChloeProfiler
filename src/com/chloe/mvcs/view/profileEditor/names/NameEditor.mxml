@@ -64,10 +64,10 @@
 				makeDays();
 				makeYears();
 				
-				this.startDays.dataProvider = this.days;
+				/*this.startDays.dataProvider = this.days;
 				this.startYears.dataProvider = this.years;
 				this.endDays.dataProvider = this.days;
-				this.endYears.dataProvider = this.years;
+				this.endYears.dataProvider = this.years;*/
 			}
 			
 			private function onSaveClickHandler(event:MouseEvent):void {
@@ -144,7 +144,7 @@
 					<s:VerticalLayout gap="10"/>
 				</s:layout>
 				<s:Label text="NAME" styleName="EditorTitle"/>
-				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{fullName}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what their name?" top="16" styleName="searchInput" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{fullName}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what their name?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 			</s:Group>
 			
 			<s:Group>

@@ -42,6 +42,14 @@
 }
 
 @font-face {
+	src						: url('fonts/OLDSIH__.TTF');
+	fontFamily				: TimesItalic2;	/* Name used in css */
+	fontStyle				: italic;				/* normal | italic | oblique */
+	fontWeight				: normal;					/* normal | bold | heavy */
+	embedAsCFF              : false;
+}
+
+@font-face {
 	src						: url('fonts/TimesBoldItalic.ttf');
 	fontFamily				: TimesBoldItalic;	/* Name used in css */
 	fontStyle				: italic;				/* normal | italic | oblique */

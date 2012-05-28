@@ -29,5 +29,5 @@
 			<s:SolidColor color="#FF0000"/>
 		</s:fill>
 	</s:Rect>
-	<s:Label id="label" text="{_data}" verticalCenter="0" styleName="RadioItem"/>
+	<s:Label id="label" text="{_data}" verticalCenter="0"/>
 </s:Group>

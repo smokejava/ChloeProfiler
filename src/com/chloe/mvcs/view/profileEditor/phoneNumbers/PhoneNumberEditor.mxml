@@ -193,7 +193,7 @@
 						<s:HorizontalLayout gap="5"/>
 					</s:layout>
 					<dragCombobox:DragComboBox id="countryCodeComboBox" totalWidth="150" dataProvider="{this.countryCodes}"/>
-					<s:TextInput id="nameInput" width="500" height="47" editable="true" text="{address}" needsSoftKeyboard="true" softKeyboardType="number" horizontalCenter="0" prompt="give me some digits, including the area code." top="16" styleName="searchInput" focusRect="false" borderVisible="false" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+					<s:TextInput id="nameInput" width="500" height="47" editable="true" text="{address}" needsSoftKeyboard="true" softKeyboardType="number" horizontalCenter="0" prompt="give me some digits, including the area code." top="16" styleName="searchInput2" focusRect="false" borderVisible="false" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 				</s:Group>
 				<s:Label text="PHONE NUMBER" styleName="EditorTitle" y="0"/>
 				

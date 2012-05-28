@@ -26,7 +26,7 @@
 			
 			public function set dataProvider(value:ArrayCollection):void {
 
-				if(value.length>0) {
+				if(value.length>0 && this._items.length==0) {
 					
 					_dataProvider = value;
 					

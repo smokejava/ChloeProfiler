@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="160" xmlns:view="com.chloe.mvcs.view.*" xmlns:controller="com.chloe.mvcs.controller.*" xmlns:search="com.chloe.mvcs.view.search.*">
+			   xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="160" xmlns:view="com.chloe.mvcs.view.*" splashScreenImage="@Embed('embedded_assets/Default.png')" xmlns:controller="com.chloe.mvcs.controller.*" xmlns:search="com.chloe.mvcs.view.search.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<controller:Controller contextView="{this}"/>

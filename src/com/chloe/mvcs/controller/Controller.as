@@ -14,6 +14,18 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorPod;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.facebook.FacebookAccountEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.facebook.FacebookAccountsEditorPod;
+	import com.chloe.mvcs.view.profileEditor.facebook.FacebookEditor;
+	import com.chloe.mvcs.view.profileEditor.facebook.FacebookEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusAccountEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusAccountsEditorPod;
+	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusEditor;
+	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerAccountsEditorPod;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerEditor;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerEditorPodMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditor;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorPod;
@@ -86,6 +98,12 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(PhoneNumberEditor, PhoneNumberEditorMediator);
 			mediatorMap.mapView(EmailAddressEditorPod, EmailAddressEditorPodMediator);
 			mediatorMap.mapView(EmailAddressEditor, EmailAddressEditorMediator);
+			mediatorMap.mapView(InstantMessengerAccountsEditorPod, InstantMessengerEditorPodMediator);
+			mediatorMap.mapView(InstantMessengerEditor, InstantMessengerEditorMediator);
+			mediatorMap.mapView(FacebookAccountsEditorPod, FacebookAccountEditorPodMediator);
+			mediatorMap.mapView(FacebookEditor, FacebookEditorMediator);
+			mediatorMap.mapView(GooglePlusAccountsEditorPod, GooglePlusAccountEditorPodMediator);
+			mediatorMap.mapView(GooglePlusEditor, GooglePlusEditorMediator);
 		}
 	}
 }

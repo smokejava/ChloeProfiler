@@ -35,7 +35,7 @@
 			<s:HorizontalLayout/>
 		</s:layout>
 		<search:SearchView id="searchView"/>
-		<profileEditor:ProfileEditor id="profileEditor" profileToEdit="{_profileToEdit}"/>
+		<profileEditor:ProfileEditor id="profileEditor" includeIn="profileEditor" profileToEdit="{_profileToEdit}"/>
 		
 	</s:Group>
 </s:Group>

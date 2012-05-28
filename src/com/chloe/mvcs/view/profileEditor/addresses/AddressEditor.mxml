@@ -136,7 +136,7 @@
 					<s:layout>
 						<s:HorizontalLayout gap="7"/>
 					</s:layout>
-					<s:TextInput id="nameInput" width="600" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+					<s:TextInput id="nameInput" width="600" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 					<s:Group id="verifyAddressButton" click="onVerifyAddressClickHandler(event)" verticalCenter="0">
 						<s:BitmapImage  source="{verifyAddressButtonBitmap}"/>
 					</s:Group>

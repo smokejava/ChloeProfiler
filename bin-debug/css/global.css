@@ -9,6 +9,14 @@ s|TextInput.searchInput {
 	 fontStyle			: italic;
 }
 
+s|TextInput.searchInput2 {
+	
+	fontFamily			: TimesItalic2;
+	fontSize			: 24;
+	color				: #c5c3c3;
+	fontStyle			: italic;
+}
+
 s|Label.AddProfileLabel {
 	
 	fontFamily			: HelveticaNeueBold;
@@ -66,13 +74,22 @@ s|Label.EditorTitle {
 	trackingLeft		: -1;
 }
 
+s|Label.DragDropDown {
+	fontFamily			: TimesItalic;
+	fontSize			: 18;
+	color				: #363636;
+	fontStyle			: italic;
+	kerning				: on;
+	trackingLeft		: -1;
+}
+
 s|Label.RadioItem {
 	fontFamily			: TimesItalic;
 	fontSize			: 18;
 	color				: #363636;
 	fontStyle			: italic;
 	kerning				: on;
-	trackingLeft		: -1
+	trackingLeft		: -1;
 }
 
 s|Label.RadioItemSelected {

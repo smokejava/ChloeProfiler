@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="565" y.hide="1024" y.show="459" xmlns:view="com.chloe.mvcs.view.*" xmlns:common="com.chloe.mvcs.view.common.*" xmlns:radioVerticalScroller="com.chloe.mvcs.view.common.radioVerticalScroller.*" xmlns:dragCombobox="com.chloe.mvcs.view.common.dragCombobox.*" addedToStage="onAddedToStageHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.address.AddressHistoryModel;
+			import com.chloe.mvcs.model.email.EmailHistoryModel;
+			import com.chloe.mvcs.model.facebook.FacebookHistoryModel;
+			import com.chloe.mvcs.model.googlePlus.GooglePlusHistoryModel;
+			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
+			
+			import mx.collections.ArrayCollection;
+			import mx.utils.StringUtil;
+			
+			import spark.filters.DropShadowFilter;
+			
+			[Bindable][Embed(source="embedded_assets/saveButton.png")]
+			private var saveButtonBitmap:Class;
+			
+			[Bindable][Embed(source="embedded_assets/cancelButton.png")]
+			private var cancelButtonBitmap:Class;
+			
+			[Bindable][Embed(source="embedded_assets/verifyAddressButton.png")]
+			private var verifyAddressButtonBitmap:Class;
+			
+			[Bindable]
+			private var address:String;
+			
+			[Bindable]
+			private var emailTypes:ArrayCollection = new ArrayCollection(["personal", "business"]);
+			
+			[Bindable]
+			private var months:ArrayCollection = new ArrayCollection(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+			
+			[Bindable]
+			private var days:ArrayCollection;
+			
+			[Bindable]
+			private var years:ArrayCollection;
+			
+			private var _googlePlusAccountHistory:GooglePlusHistoryModel
+			
+			public function set googlePlusAccountHistory(value:GooglePlusHistoryModel):void {
+				
+				_googlePlusAccountHistory = value;
+				
+			}
+			
+			private function onAddedToStageHandler(event:Event):void {
+				makeDays();
+				makeYears();
+				
+				this.startDays.dataProvider = this.days;
+				this.startYears.dataProvider = this.years;
+				this.endDays.dataProvider = this.days;
+				this.endYears.dataProvider = this.years;
+			}
+			
+			private function onSaveClickHandler(event:MouseEvent):void {
+				
+				this.currentState = "hide";
+			}
+			
+			private function onCancelClickHandler(event:MouseEvent):void {
+				
+				this.currentState = "hide";
+			}
+			
+			private function onVerifyAddressClickHandler(event:MouseEvent):void {
+				
+			}
+			
+			private function makeDays():void {
+				
+				this.days = new ArrayCollection()
+				var a:int = 1;
+				var b:int = 32;
+				for(;a<b;a++) {
+					
+					this.days.addItem(a.toString());
+				}
+			}
+			
+			private function makeYears():void {
+				
+				this.years = new ArrayCollection()
+				var a:int = new Date().fullYear - 110;
+				var b:int = new Date().fullYear + 50;
+				for(;a<b;a++) {
+					this.years.addItem(a.toString());
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="hide"/>
+		<s:State name="show"/>
+	</s:states>
+	<s:transitions>
+		<s:Transition fromState="hide" toState="show" autoReverse="true">
+			<s:Move target="{this}" duration="500"/>
+		</s:Transition>
+	</s:transitions>
+	
+	<s:Group>
+		<s:Rect width="1024" height="565" filters="{[new spark.filters.DropShadowFilter(2, -90, 0x000000, .56, 4, 4, 1, 2)]}">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:Group id="saveButton" click="onSaveClickHandler(event)">
+				<s:BitmapImage  source="{saveButtonBitmap}"/>
+			</s:Group>
+			<s:Group id="cancelButton" click="onCancelClickHandler(event)">
+				<s:BitmapImage  source="{cancelButtonBitmap}"/>
+			</s:Group>
+		</s:Group>
+		<s:Group  left="30" top="100" bottom="10" right="10">
+			<s:layout>
+				<s:VerticalLayout gap="20"/>
+			</s:layout>
+			
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10"/>
+				</s:layout>
+				<s:Label text="GOOGLE + ACCOUNT" styleName="EditorTitle"/>
+				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="what does the google know you by?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="email" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+			</s:Group>
+			<s:Group>
+				<s:layout>
+					<s:VerticalLayout gap="10"/>
+				</s:layout>
+				<s:Label text="WHAT TYPE OF GOOGLE+ ACCOUNT IS/WAS THIS?" styleName="EditorTitle"/>
+				<radioVerticalScroller:RadioScroller id="typeRadio" dataProvider="{emailTypes}" width="200"/>
+			</s:Group>
+			<s:Group>
+				<s:layout>
+					<s:HorizontalLayout gap="40"/>
+				</s:layout>
+				<s:Group>
+					<s:Group y="5">
+						<s:layout>
+							<s:HorizontalLayout gap="3"/>
+						</s:layout>
+						<dragCombobox:DragComboBox dataProvider="{months}" totalWidth="90"/>
+						<dragCombobox:DragComboBox id="startDays" dataProvider="{days}" totalWidth="30"/>
+						<dragCombobox:DragComboBox id="startYears" dataProvider="{years}" totalWidth="50"/>
+					</s:Group>
+					<s:Label y="0" text="STARTED USING THIS GOOGLE+ ACCOUNT" styleName="EditorTitle"/>
+				</s:Group>
+				
+				<s:Group>
+					<s:Group y="5">
+						<s:layout>
+							<s:HorizontalLayout gap="3"/>
+						</s:layout>
+						<dragCombobox:DragComboBox dataProvider="{months}" totalWidth="90"/>
+						<dragCombobox:DragComboBox id="endDays" dataProvider="{days}" totalWidth="30"/>
+						<dragCombobox:DragComboBox id="endYears" dataProvider="{years}" totalWidth="50"/>
+					</s:Group>
+					<s:Label y="0" text="STOPPED USING THIS GOOGLE+ ACCOUNT" styleName="EditorTitle"/>
+				</s:Group>
+			</s:Group>
+		</s:Group>
+		
+	</s:Group>
+	
+	
+</s:Group>

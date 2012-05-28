@@ -37,6 +37,8 @@
 				
 				dispatchEvent(new RadioSelectEvent(RadioSelectEvent.ITEM_SELECTED, _radioId));
 			}
+			
+			/*styleName.unselected="RadioItem" styleName.selected="RadioItemSelected"*/
 		]]>
 	</fx:Script>
 	<s:states>
@@ -54,6 +56,6 @@
 			<s:SolidColor color="#333333"/>
 		</s:fill>
 	</s:Rect>
-	<s:Label id="label" x="8" y="8" text="{_caption}" styleName.unselected="RadioItem" styleName.selected="RadioItemSelected" click="onClickItemHandler(event)"/>
+	<s:Label id="label" x="8" y="8" text="{_caption}"  click="onClickItemHandler(event)"/>
 	
 </s:Group>
