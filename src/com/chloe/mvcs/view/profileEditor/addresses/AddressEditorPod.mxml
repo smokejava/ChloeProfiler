@@ -21,10 +21,27 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddAddressButton.png";
 			
-			public function set nameHistories(value:ArrayCollection):void 			{
+			public function set nameHistories(value:ArrayCollection):void {
+				
 				_addressHistories = value
 			};
 			
+			
+			public function saveNewAddress(value:AddressHistoryModel):void {
+				
+				this._addressHistories.addItemAt(value, 0);
+			}
+			
+			public function saveExistingAddress(value:AddressHistoryModel):void {
+				
+				for each(var aAddressHistory:AddressHistoryModel in this._addressHistories) {
+					
+					if(aAddressHistory.id == value.id) {
+						
+						aAddressHistory = value;
+					}
+				}
+			}
 			
 			protected function addedToStageHandler(event:Event):void
 			{

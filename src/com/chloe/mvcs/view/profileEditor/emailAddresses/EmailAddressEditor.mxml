@@ -10,6 +10,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.utils.StringUtil;
+			import mx.validators.EmailValidator;
 			
 			import spark.filters.DropShadowFilter;
 			
@@ -43,6 +44,12 @@
 				
 				_emailAddressHistory = value;
 				
+			}
+			
+			public function isValidEmailAddress():Boolean {
+				
+				//TODO address email address validator
+				return false;
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
@@ -90,6 +97,16 @@
 				}
 			}
 			
+			private function onKeyUpHandler(event:KeyboardEvent):void {
+				
+				if(isValidEmailAddress()) {
+					
+					this.currentState == "emailAddressVerified";
+				} else {
+					this.currentState == "emailAddressUnverified";
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -98,6 +115,8 @@
 	<s:states>
 		<s:State name="hide"/>
 		<s:State name="show"/>
+		<s:State name="emailAddressVerified"/>
+		<s:State name="emailAddressUnverified"/>
 	</s:states>
 	<s:transitions>
 		<s:Transition fromState="hide" toState="show" autoReverse="true">
@@ -133,7 +152,7 @@
 					<s:VerticalLayout gap="10"/>
 				</s:layout>
 				<s:Label text="EMAIL ADDRESS" styleName="EditorTitle"/>
-				<s:TextInput id="nameInput" width="700" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="email" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+				<s:TextInput id="emailInput" width="700" height="47" editable="true" text="{address}" keyUp="onKeyUpHandler(event)" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="email" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 			</s:Group>
 			<s:Group>
 				<s:layout>

@@ -7,6 +7,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.chloe.mvcs.view.common.RadioSelectEvent;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -20,6 +21,9 @@
 			
 			private var _dataProvider:ArrayCollection;
 			private var _items:ArrayCollection = new ArrayCollection();
+			
+			private var _selectedItem:String = null;
+			
 			override public function set width(value:Number):void {
 				
 				_width = value;
@@ -28,6 +32,11 @@
 			override public function set height(value:Number):void {
 				
 				_height = value;
+			}
+			
+			public function get selectedItem():String {
+				
+				return _selectedItem;	
 			}
 			
 			public function set dataProvider(value:ArrayCollection):void {
@@ -48,33 +57,32 @@
 				
 				var a:int = 0;
 				var b:int = _dataProvider.length;
-				trace(_dataProvider.length);
 
 				for(;a<b;a++){
 					this._items.addItem(new RadioScrollItem());
 					this._items[this._items.length-1].radioId = a;
-					trace(this._items[this._items.length-1].radioId)
 					this._items[this._items.length-1].caption = _dataProvider[a];
-					//this._items[this._items.length-1].addEventListner(Event.SELECT, onItemSelectedHandler);
+					this._items[this._items.length-1].addEventListener(RadioSelectEvent.ITEM_SELECTED, onRadioItemSelectedHandler);
 					horizontalGroup.addElement(this._items[this._items.length-1]);
 				}
 			}
 			
-			public function reasonSelected(radioId:int):void {
+			
+			private function onRadioItemSelectedHandler(event:RadioSelectEvent):void {
 				
 				for each(var aRadioItem:RadioScrollItem in this._items) {
 					
-					if(aRadioItem.radioId == radioId) {
+					if(aRadioItem.radioId == event.radioId) {
 						
 						aRadioItem.selected = true;
+						this._selectedItem = aRadioItem.caption;
 					} else {
 						
 						aRadioItem.selected = false;
 					}
 				}
 			}
-			
-			
+
 		]]>
 	</fx:Script>
 	

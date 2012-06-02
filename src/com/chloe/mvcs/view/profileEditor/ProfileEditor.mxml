@@ -102,11 +102,11 @@
 			<instagramAccounts:InstaGramsAccountsEditorPod/>
 		</s:VGroup>
 	</s:Scroller>
-	<!--<names:NameEditor/>
+	<names:NameEditor/>
 	<addresses:AddressEditor/>
 	<phoneNumbers:PhoneNumberEditor/>
 	<emailAddresses:EmailAddressEditor/>
 	<instantMessengerAccounts:InstantMessengerEditor/>
 	<facebook:FacebookEditor/>
-	<googlePlusAccounts:GooglePlusEditor/>-->
+	<googlePlusAccounts:GooglePlusEditor/>
 </s:Group>

@@ -40,6 +40,7 @@
 			[Bindable]
 			private var pictureBitmap:BitmapData;
 			
+			private var bitmapByteArray:ByteArray;
 			private var pictureMask:SpriteVisualElement = new SpriteVisualElement();
 			private var loadingAnimation:LoaderSpinner = new LoaderSpinner();
 			
@@ -191,6 +192,9 @@
 
 				var imageContainerBData:BitmapData = new BitmapData(image.width, image.height, true, 0x000000);
 				imageContainerBData.draw(image.bitmapData, null, null, null, new Rectangle(0, 0, image.width, image.height), false);
+				
+				//imageContainerBData.encode(imageContainerBData.rect, new JPEGEncoderOptions(), this.bitmapByteArray);
+
 				
 				this.currentState = "encodingImage"
 				

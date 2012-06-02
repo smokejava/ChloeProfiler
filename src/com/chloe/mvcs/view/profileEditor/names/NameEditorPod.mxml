@@ -21,9 +21,24 @@
 			private var _addButtonImageSource:String = "embedded_assets/addNameButton.png";
 			
 			public function set nameHistories(value:ArrayCollection):void 			{
-				_nameHistories = value
-			};
+				_nameHistories = value;
+			}
 			
+			public function saveNewName(value:FullNameHistoryModel):void {
+				
+				_nameHistories.addItemAt(value, 0);
+			}
+			
+			public function saveExistingName(value:FullNameHistoryModel):void {
+				
+				for each(var aNameHistory:FullNameHistoryModel in this._nameHistories) {
+					
+					if(aNameHistory.id == value.id) {
+						
+						aNameHistory = value;
+					}
+				}
+			}
 			
 			protected function addedToStageHandler(event:Event):void
 			{
@@ -32,7 +47,9 @@
 			
 			private function onAddedButtonClickHandler(event:MouseEvent):void {
 				
-				dispatchEvent(new NameEvent(NameEvent.ADD_NEW_NAME, new FullNameHistoryModel()));
+				var tempNameHistory:FullNameHistoryModel = new FullNameHistoryModel();
+				tempNameHistory.id = "temp" + (_nameHistories.length + 1).toString();
+				dispatchEvent(new NameEvent(NameEvent.ADD_NEW_NAME, tempNameHistory));
 			}
 			
 		]]>

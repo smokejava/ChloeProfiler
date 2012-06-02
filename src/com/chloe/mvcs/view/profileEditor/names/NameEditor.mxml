@@ -4,6 +4,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.model.name.FullNameModel;
 			import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
 			
 			import mx.collections.ArrayCollection;
@@ -33,7 +34,23 @@
 			private var years:ArrayCollection;
 			
 			private var _nameHistory:FullNameHistoryModel
+			private var _typeOfEdit:String = new String();
 			
+			public function set typeOfEdit(value:String):void		{_typeOfEdit = value};
+			
+			public function set translatedName(value:FullNameModel):void {
+			
+				this._nameHistory.fullName = value;
+				this.currentState = "hide";
+				
+				if(this._typeOfEdit == "add") {
+					
+					dispatchEvent(new NameEvent(NameEvent.SAVE_NEW_NAME, this._nameHistory));
+				} else {
+					
+					dispatchEvent(new NameEvent(NameEvent.SAVE_EXISTING_NAME, this._nameHistory));
+				}
+			}
 			public function set nameHistory(value:FullNameHistoryModel):void {
 				
 				_nameHistory = value;
@@ -54,12 +71,6 @@
 				}
 			}
 			
-			public function reasonSelected(radioId:int):void {
-				
-				reasonsRadio.reasonSelected(radioId);
-				
-			}
-			
 			private function onAddedToStageHandler(event:Event):void {
 				makeDays();
 				makeYears();
@@ -72,7 +83,20 @@
 			
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
-				this.currentState = "hide";
+				if(this._typeOfEdit=="add") {
+					
+					this.currentState = "translatingName";
+					dispatchEvent(new NameTranslateEvent(NameTranslateEvent.TRANSLATE_NAME, this.nameInput.text));
+				} else {
+					
+					if(this.nameInput.text == this._nameHistory.fullName.fullNameToString()) {
+						
+						dispatchEvent(new NameEvent(NameEvent.SAVE_EXISTING_NAME, this._nameHistory));
+					} else {
+						
+						dispatchEvent(new NameTranslateEvent(NameTranslateEvent.TRANSLATE_NAME, this.nameInput.text));
+					}
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {
@@ -109,6 +133,8 @@
 	<s:states>
 		<s:State name="hide"/>
 		<s:State name="show"/>
+		<s:State name="translatingName"/>
+		<s:State name="nameTranslated"/>
 	</s:states>
 	<s:transitions>
 		<s:Transition fromState="hide" toState="show" autoReverse="true">

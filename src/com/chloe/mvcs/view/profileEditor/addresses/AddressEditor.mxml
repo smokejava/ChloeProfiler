@@ -4,6 +4,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.chloe.mvcs.model.address.AddressHistoryModel;
+			import com.chloe.mvcs.model.address.AddressModel;
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
 			import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
 			
@@ -36,12 +37,27 @@
 			[Bindable]
 			private var years:ArrayCollection;
 			
-			private var _addressHistory:AddressHistoryModel
+			private var _addressHistory:AddressHistoryModel;
+			private var _typeOfEdit:String = new String();
 			
+			public function set typeOfEdit(value:String):void 	{_typeOfEdit = value};
 			public function set addressHistory(value:AddressHistoryModel):void {
 				
 				_addressHistory = value;
+			}
+			
+			public function set verifiedAddress(value:AddressModel):void {
 				
+				this._addressHistory.address = value;
+				this.currentState = "hide";
+				
+				if(this._typeOfEdit == "add") {
+					
+					dispatchEvent(new AddressEvent(AddressEvent.SAVE_NEW_ADDRESS, this._addressHistory));
+				} else {
+					
+					dispatchEvent(new AddressEvent(AddressEvent.SAVE_EXISTING_ADDRESS, this._addressHistory));
+				}
 			}
 
 			private function onAddedToStageHandler(event:Event):void {
@@ -56,7 +72,20 @@
 			
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
-				this.currentState = "hide";
+				if(this._typeOfEdit == "add") {
+					
+					this.currentState = "verifyingAddress"
+					dispatchEvent(new AddressVerificationEvent(AddressVerificationEvent.VERIFY_ADDRESS, this.addressInput.text));
+				} else {
+					
+					if(this.addressInput.text == this._addressHistory.address.addressToString()) {
+						
+						dispatchEvent(new AddressEvent(AddressEvent.SAVE_EXISTING_ADDRESS, this._addressHistory));
+					} else {
+						
+						dispatchEvent(new AddressVerificationEvent(AddressVerificationEvent.VERIFY_ADDRESS, this.addressInput.text));
+					}
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {
@@ -97,6 +126,8 @@
 	<s:states>
 		<s:State name="hide"/>
 		<s:State name="show"/>
+		<s:State name="verifiyingAddress"/>
+		<s:State name="addressVerified"/>
 	</s:states>
 	<s:transitions>
 		<s:Transition fromState="hide" toState="show" autoReverse="true">
@@ -136,7 +167,7 @@
 					<s:layout>
 						<s:HorizontalLayout gap="7"/>
 					</s:layout>
-					<s:TextInput id="nameInput" width="600" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
+					<s:TextInput id="addressInput" width="600" height="47" editable="true" text="{address}" needsSoftKeyboard="true" horizontalCenter="0" prompt="where is this place?" top="16" styleName="searchInput2" focusRect="false" borderVisible="false" softKeyboardType="contact" skinClass="com.chloe.mvcs.view.common.skins.textInput.ChloeTextAreaSkin" filters="{[new spark.filters.DropShadowFilter(2, 90, 0x000000, .25, 2, 2, 1, 2, true)]}"/>
 					<s:Group id="verifyAddressButton" click="onVerifyAddressClickHandler(event)" verticalCenter="0">
 						<s:BitmapImage  source="{verifyAddressButtonBitmap}"/>
 					</s:Group>

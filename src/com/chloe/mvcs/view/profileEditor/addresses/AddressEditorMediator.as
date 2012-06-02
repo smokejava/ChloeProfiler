@@ -19,6 +19,11 @@ package com.chloe.mvcs.view.profileEditor.addresses
 		
 		override public function onRegister():void {
 			
+			eventMap.mapListener(view, AddressEvent.SAVE_EXISTING_ADDRESS, dispatch);
+			eventMap.mapListener(view, AddressEvent.SAVE_NEW_ADDRESS, dispatch);
+			eventMap.mapListener(view, AddressVerificationEvent.VERIFY_ADDRESS, dispatch);
+			
+			eventMap.mapListener(eventDispatcher, AddressVerificationEvent.ADDRESS_VERIFIED, onAddressVerifiedHandler);
 			eventMap.mapListener(eventDispatcher, AddressEvent.ADD_NEW_ADDRESS , onAddedNewNameHandler);
 			eventMap.mapListener(eventDispatcher, AddressEvent.EDIT_ADDRESS, onEditNameHandler);
 		}
@@ -33,6 +38,11 @@ package com.chloe.mvcs.view.profileEditor.addresses
 			
 			view.addressHistory = event.addressHistory;
 			view.currentState = "show";
+		}
+		
+		private function onAddressVerifiedHandler(event:AddressVerificationEvent):void {
+			
+			view.verifiedAddress = event.verifiedAddress;
 		}
 
 	}

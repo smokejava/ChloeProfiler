@@ -10,6 +10,9 @@ package com.chloe.mvcs.view.profileEditor.addresses
 		public static const ADD_NEW_ADDRESS:String = "ADD_NEW_ADDRESS";
 		public static const EDIT_ADDRESS:String = "EDIT_ADDRESS";
 		
+		public static const SAVE_NEW_ADDRESS:String = "SAVE_NEW_ADDRESS";
+		public static const SAVE_EXISTING_ADDRESS:String = "SAVE_EXISTING_ADDRESS";
+		
 		private var _addressHistory:AddressHistoryModel;
 		public function AddressEvent(type:String, aAddressHistory:AddressHistoryModel, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

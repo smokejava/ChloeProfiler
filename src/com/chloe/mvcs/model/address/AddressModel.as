@@ -34,5 +34,10 @@ package com.chloe.mvcs.model.address
 			lat = latLng.x;
 			lng = latLng.y;
 		}
+		
+		public function addressToString():String {
+			
+			return this.street.streetAddress + " " + this.city.city + " " + this.state.state + " " + this.zipCode.zipCode
+		}
 	}
 }

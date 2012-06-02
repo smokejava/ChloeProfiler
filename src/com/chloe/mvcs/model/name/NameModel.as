@@ -9,5 +9,7 @@ package com.chloe.mvcs.model.name
 		public function NameModel()
 		{
 		}
+		
+		
 	}
 }

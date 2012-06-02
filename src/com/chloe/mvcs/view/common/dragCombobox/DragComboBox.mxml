@@ -9,6 +9,7 @@
 	<fx:Script>
 		<![CDATA[
 			import caurina.transitions.Tweener;
+			
 			import mx.collections.ArrayCollection;
 			
 			import spark.core.SpriteVisualElement;
@@ -19,8 +20,10 @@
 			
 			private var _dataProvider:ArrayCollection = new ArrayCollection();
 			private var _items:ArrayCollection = new ArrayCollection();
+			private var _selectedItem:String = null;
 			private var startY:Number = new Number();
 			
+			public function get selectedItem():String			{return _selectedItem};
 			public function get totalWidth():int 				{return _totalWidth};
 			public function set totalWidth(value:int):void		{_totalWidth = value};
 			
@@ -97,8 +100,9 @@
 			
 			private function onMouseUpHandler(event:MouseEvent):void {
 				
-				var itemPosition:int = Math.round(Math.abs(this.draggingGroup.y/30)) 
-					trace(itemPosition);
+				var itemPosition:int = Math.round(Math.abs((this.draggingGroup.y+35)/30)) 
+				trace(itemPosition);
+				this._selectedItem = this._items[itemPosition].data;
 				Tweener.addTween(this.draggingGroup, {y:(-(itemPosition+1)* 30) + 35, time:.5, transition:"easeOutQuad"});
 				this.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
 				this.stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpHandler);

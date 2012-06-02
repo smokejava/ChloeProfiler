@@ -14,6 +14,19 @@ package com.chloe.mvcs.view.profileEditor.addresses
 		override public function onRegister():void {
 			
 			eventMap.mapListener(view, AddressEvent.ADD_NEW_ADDRESS, dispatch);
+			
+			eventMap.mapListener(eventDispatcher, AddressEvent.SAVE_NEW_ADDRESS, onSaveNewAddressHandler);
+			eventMap.mapListener(eventDispatcher, AddressEvent.SAVE_EXISTING_ADDRESS, onSaveExistingAddressHandler);
+		}
+		
+		private function onSaveNewAddressHandler(event:AddressEvent):void {
+			
+			view.saveNewAddress(event.addressHistory);
+		}
+		
+		private function onSaveExistingAddressHandler(event:AddressEvent):void {
+			
+			view.saveExistingAddress(event.addressHistory);
 		}
 	}
 }

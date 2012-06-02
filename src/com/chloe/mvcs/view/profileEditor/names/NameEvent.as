@@ -7,7 +7,9 @@ package com.chloe.mvcs.view.profileEditor.names
 	public class NameEvent extends Event
 	{
 		public static const ADD_NEW_NAME:String = "ADD_NEW_NAME";
+		public static const SAVE_NEW_NAME:String = "SAVE_NEW_NAME";
 		public static const EDIT_NAME:String = "EDIT_NAME";
+		public static const SAVE_EXISTING_NAME:String = "SAVE_EXISTING_NAME";
 		
 		private var _nameHistory:FullNameHistoryModel;
 		public function NameEvent(type:String, aNameHistory:FullNameHistoryModel, bubbles:Boolean=false, cancelable:Boolean=false)

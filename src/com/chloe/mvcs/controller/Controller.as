@@ -1,5 +1,11 @@
 package com.chloe.mvcs.controller
 {
+	import com.chloe.mvcs.controller.commands.address.VerifyAddressCommand;
+	import com.chloe.mvcs.controller.commands.name.TranslateNameCommand;
+	import com.chloe.mvcs.service.address.IAddressService;
+	import com.chloe.mvcs.service.address.AddressService;
+	import com.chloe.mvcs.service.name.INameService;
+	import com.chloe.mvcs.service.name.NameService;
 	import com.chloe.mvcs.view.ClientContextMediator;
 	import com.chloe.mvcs.view.ClientContextView;
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
@@ -10,6 +16,7 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPod;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressVerificationEvent;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditor;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorPod;
@@ -32,6 +39,7 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.names.NameEditorPodMediator;
 	import com.chloe.mvcs.view.profileEditor.names.NameItemRenderer;
 	import com.chloe.mvcs.view.profileEditor.names.NameItemRendererMediator;
+	import com.chloe.mvcs.view.profileEditor.names.NameTranslateEvent;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditor;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorPodMediator;
@@ -69,7 +77,9 @@ package com.chloe.mvcs.controller
 		}
 		
 		private function mapCommands():void {
-			
+
+			commandMap.mapEvent(NameTranslateEvent.TRANSLATE_NAME, TranslateNameCommand);
+			commandMap.mapEvent(AddressVerificationEvent.VERIFY_ADDRESS, VerifyAddressCommand);
 		}
 		
 		private function mapModels():void {
@@ -79,6 +89,8 @@ package com.chloe.mvcs.controller
 		
 		private function mapServices():void {
 			
+			injector.mapSingletonOf(INameService, NameService);
+			injector.mapSingletonOf(IAddressService, AddressService);
 		}
 		
 		private function mapMediators():void {
