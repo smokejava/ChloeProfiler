@@ -1,11 +1,17 @@
 package com.chloe.mvcs.controller
 {
+	import com.chloe.mvcs.controller.commands.ProfileSavedCommand;
 	import com.chloe.mvcs.controller.commands.address.VerifyAddressCommand;
 	import com.chloe.mvcs.controller.commands.name.TranslateNameCommand;
-	import com.chloe.mvcs.service.address.IAddressService;
 	import com.chloe.mvcs.service.address.AddressService;
+	import com.chloe.mvcs.service.address.IAddressService;
+	import com.chloe.mvcs.service.chloeProfileSave.ChloeProfileSave;
+	import com.chloe.mvcs.service.chloeProfileSave.IChloeProfileSave;
+	import com.chloe.mvcs.service.chloeProfileSave.ProfileSaveEvent;
 	import com.chloe.mvcs.service.name.INameService;
 	import com.chloe.mvcs.service.name.NameService;
+	import com.chloe.mvcs.service.ques.ISavingQue;
+	import com.chloe.mvcs.service.ques.SavingQue;
 	import com.chloe.mvcs.view.ClientContextMediator;
 	import com.chloe.mvcs.view.ClientContextView;
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
@@ -53,7 +59,6 @@ package com.chloe.mvcs.controller
 	
 	import flash.display.DisplayObjectContainer;
 	
-	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
 
 	public class Controller extends Context
@@ -80,6 +85,7 @@ package com.chloe.mvcs.controller
 
 			commandMap.mapEvent(NameTranslateEvent.TRANSLATE_NAME, TranslateNameCommand);
 			commandMap.mapEvent(AddressVerificationEvent.VERIFY_ADDRESS, VerifyAddressCommand);
+			commandMap.mapEvent(ProfileSaveEvent.PROFILE_SAVED, ProfileSavedCommand);
 		}
 		
 		private function mapModels():void {
@@ -91,6 +97,8 @@ package com.chloe.mvcs.controller
 			
 			injector.mapSingletonOf(INameService, NameService);
 			injector.mapSingletonOf(IAddressService, AddressService);
+			injector.mapSingletonOf(ISavingQue, SavingQue);
+			injector.mapSingletonOf(IChloeProfileSave, ChloeProfileSave);
 		}
 		
 		private function mapMediators():void {
