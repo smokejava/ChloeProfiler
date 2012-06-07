@@ -42,7 +42,6 @@
 		<s:layout>
 			<s:VerticalLayout gap="0"/>
 		</s:layout>
-		<s:Label text="{phoneNumberType}" styleName="ItemTitle"/>
 		<s:Label text="{dates}" styleName="ItemSubTitle"/>
 		<s:Label text="{reason}" styleName="ItemSubTitle"/>
 	</s:Group>
