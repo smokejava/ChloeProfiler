@@ -59,6 +59,14 @@
 					dispatchEvent(new AddressEvent(AddressEvent.SAVE_EXISTING_ADDRESS, this._addressHistory));
 				}
 			}
+			
+			public function badAddress(value:String):void {
+				
+			}
+			
+			public function unableToVerifyAddress(value:String):void {
+				
+			}
 
 			private function onAddedToStageHandler(event:Event):void {
 				makeDays();

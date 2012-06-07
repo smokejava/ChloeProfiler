@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="50" autoDrawBackground="false" click="onClickHandler(event);">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.address.AddressHistoryModel;
+			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			
+			import mx.utils.StringUtil;
+			
+			[Bindable]
+			private var fullStreetAddress:String;
+			
+			[Bindable]
+			private var fullCityAddress:String;
+			
+			[Bindable]
+			private var dates:String;
+			
+			[Bindable]
+			private var reason:String = "It's the name I was born with"
+			
+			private var _addressHistory:AddressHistoryModel;
+			
+			override public function set data(value:Object):void {
+				
+				_addressHistory = value as AddressHistoryModel
+			
+				this.fullStreetAddress = _addressHistory.address.street.streetAddress;
+				this.fullCityAddress = _addressHistory.address.city + ", " + _addressHistory.address.state.abbreviation.abbreviation + " " + _addressHistory.address.zipCode.zipCode;
+					
+				dates = _addressHistory.startDate.month + " " + _addressHistory.startDate.day + ", " + _addressHistory.startDate.year + " - " + _addressHistory.endDate.month + " " + _addressHistory.endDate.day + ", " + _addressHistory.endDate.year;
+			}
+			
+			private function onClickHandler(event:MouseEvent):void {
+				
+				dispatchEvent(new AddressEvent(AddressEvent.EDIT_ADDRESS, _addressHistory));
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="-3"/>
+	</s:layout>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout gap="-5"/>
+		</s:layout>
+		<s:Label text="{fullStreetAddress}" styleName="ItemTitle"/>
+		<s:Label text="{fullCityAddress}" styleName="ItemTitle"/>
+	</s:Group>
+	
+	<s:Group>
+		<s:layout>
+			<s:VerticalLayout gap="0"/>
+		</s:layout>
+		<s:Label text="{dates}" styleName="ItemSubTitle"/>
+		<s:Label text="{reason}" styleName="ItemSubTitle"/>
+	</s:Group>
+</s:ItemRenderer>

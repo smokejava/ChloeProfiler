@@ -24,8 +24,11 @@ package com.chloe.mvcs.view.profileEditor.addresses
 			eventMap.mapListener(view, AddressVerificationEvent.VERIFY_ADDRESS, dispatch);
 			
 			eventMap.mapListener(eventDispatcher, AddressVerificationEvent.ADDRESS_VERIFIED, onAddressVerifiedHandler);
+			eventMap.mapListener(eventDispatcher, AddressVerificationEvent.BAD_ADDRESS, onBadAddressToVerifyHandler);
+			eventMap.mapListener(eventDispatcher, AddressVerificationEvent.UNABLE_TO_VERIFY_ADDRESS, onUnableToVerifyAddressHandler);
 			eventMap.mapListener(eventDispatcher, AddressEvent.ADD_NEW_ADDRESS , onAddedNewNameHandler);
 			eventMap.mapListener(eventDispatcher, AddressEvent.EDIT_ADDRESS, onEditNameHandler);
+			
 		}
 		
 		private function onAddedNewNameHandler(event:AddressEvent):void {
@@ -45,5 +48,14 @@ package com.chloe.mvcs.view.profileEditor.addresses
 			view.verifiedAddress = event.verifiedAddress;
 		}
 
+		private function onBadAddressToVerifyHandler(event:AddressVerificationEvent):void {
+			
+			view.badAddress(event.addressToVerify);
+		}
+		
+		private function onUnableToVerifyAddressHandler(event:AddressVerificationEvent):void {
+			
+			view.unableToVerifyAddress(event.addressToVerify);
+		}
 	}
 }

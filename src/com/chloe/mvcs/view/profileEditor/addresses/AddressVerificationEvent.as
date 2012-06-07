@@ -8,6 +8,8 @@ package com.chloe.mvcs.view.profileEditor.addresses
 	{
 		public static const VERIFY_ADDRESS:String = "VERIFY_ADDRESS";
 		public static const ADDRESS_VERIFIED:String = "ADDRESS_VERIFIED";
+		public static const BAD_ADDRESS:String = "BAD_ADDRESS";
+		public static const UNABLE_TO_VERIFY_ADDRESS:String = "UNABLE_TO_VERIFY_ADDRESS";
 		
 		private var _addressToVerify:String = new String();
 		private var _verifiedAddress:AddressModel

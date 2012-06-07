@@ -22,6 +22,8 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPod;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressItemRenderer;
+	import com.chloe.mvcs.view.profileEditor.addresses.AddressItemRendererMediator;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressVerificationEvent;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditor;
 	import com.chloe.mvcs.view.profileEditor.emailAddresses.EmailAddressEditorMediator;
@@ -49,6 +51,8 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditor;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorMediator;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberEditorPodMediator;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberItemRenderer;
+	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumberItemRendererMediator;
 	import com.chloe.mvcs.view.profileEditor.phoneNumbers.PhoneNumbersEditorPod;
 	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRender;
 	import com.chloe.mvcs.view.profileEditor.pictureEditor.PictureEditorItemRenderMediator;
@@ -114,8 +118,10 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(NameItemRenderer, NameItemRendererMediator);
 			mediatorMap.mapView(AddressEditor, AddressEditorMediator);
 			mediatorMap.mapView(AddressEditorPod, AddressEditorPodMediator);
+			mediatorMap.mapView(AddressItemRenderer, AddressItemRendererMediator);
 			mediatorMap.mapView(PhoneNumbersEditorPod, PhoneNumberEditorPodMediator);
 			mediatorMap.mapView(PhoneNumberEditor, PhoneNumberEditorMediator);
+			mediatorMap.mapView(PhoneNumberItemRenderer, PhoneNumberItemRendererMediator);
 			mediatorMap.mapView(EmailAddressEditorPod, EmailAddressEditorPodMediator);
 			mediatorMap.mapView(EmailAddressEditor, EmailAddressEditorMediator);
 			mediatorMap.mapView(InstantMessengerAccountsEditorPod, InstantMessengerEditorPodMediator);

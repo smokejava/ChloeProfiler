@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="50" autoDrawBackground="false" click="onClickHandler(event);">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.phone.PhoneNumberHistoryModel;
+			
+			import mx.utils.StringUtil;
+			
+			[Bindable]
+			private var fullPhoneNumber:String;
+			
+			[Bindable]
+			private var phoneNumberType:String;
+			
+			[Bindable]
+			private var dates:String;
+			
+			[Bindable]
+			private var reason:String = "It's the name I was born with"
+			
+			private var _phoneHistory:PhoneNumberHistoryModel
+			
+			override public function set data(value:Object):void {
+				
+				_phoneHistory = value as PhoneNumberHistoryModel;
+				
+				this.fullPhoneNumber = "+" + _phoneHistory.phoneNumber.countryCode + " " + _phoneHistory.phoneNumber.areaCode + "." + _phoneHistory.phoneNumber.prefix + "." + _phoneHistory.phoneNumber.number;
+				this.phoneNumberType = String(_phoneHistory.phoneNumber.type);
+				dates = _phoneHistory.startDate.month + " " + _phoneHistory.startDate.day + ", " + _phoneHistory.startDate.year + " - " + _phoneHistory.endDate.month + " " + _phoneHistory.endDate.day + ", " + _phoneHistory.endDate.year;
+			}
+			
+			private function onClickHandler(event:MouseEvent):void {
+				
+				dispatchEvent(new PhoneEvent(PhoneEvent.EDIT_PHONE_NUMBER, _phoneHistory));
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="-3"/>
+	</s:layout>
+		<s:Label text="{fullPhoneNumber}" styleName="ItemTitle"/>
+	<s:Group>
+		<s:layout>
+			<s:VerticalLayout gap="0"/>
+		</s:layout>
+		<s:Label text="{phoneNumberType}" styleName="ItemTitle"/>
+		<s:Label text="{dates}" styleName="ItemSubTitle"/>
+		<s:Label text="{reason}" styleName="ItemSubTitle"/>
+	</s:Group>
+</s:ItemRenderer>
