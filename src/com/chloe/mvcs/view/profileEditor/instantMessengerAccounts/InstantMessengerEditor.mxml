@@ -50,13 +50,19 @@
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
+				
+				Multitouch.inputMode = MultitouchInputMode.GESTURE;
+				this.addEventListener(TransformGestureEvent.GESTURE_SWIPE, onSwipeDownHandler);
+				
 				makeDays();
 				makeYears();
+			}
+			
+			private function onSwipeDownHandler(event:TransformGestureEvent):void {
 				
-				this.startDays.dataProvider = this.days;
-				this.startYears.dataProvider = this.years;
-				this.endDays.dataProvider = this.days;
-				this.endYears.dataProvider = this.years;
+				if(event.offsetY==1) {
+					this.currentState=="hide";
+				}
 			}
 			
 			private function onSaveClickHandler(event:MouseEvent):void {
