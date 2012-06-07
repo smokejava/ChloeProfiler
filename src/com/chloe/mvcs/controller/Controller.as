@@ -37,6 +37,8 @@ package com.chloe.mvcs.controller
 	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusAccountsEditorPod;
 	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusEditor;
 	import com.chloe.mvcs.view.profileEditor.googlePlusAccounts.GooglePlusEditorMediator;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerAccountItemRenderer;
+	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerAccountItemRendererMediator;
 	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerAccountsEditorPod;
 	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerEditor;
 	import com.chloe.mvcs.view.profileEditor.instantMessengerAccounts.InstantMessengerEditorMediator;
@@ -126,6 +128,7 @@ package com.chloe.mvcs.controller
 			mediatorMap.mapView(EmailAddressEditor, EmailAddressEditorMediator);
 			mediatorMap.mapView(InstantMessengerAccountsEditorPod, InstantMessengerEditorPodMediator);
 			mediatorMap.mapView(InstantMessengerEditor, InstantMessengerEditorMediator);
+			mediatorMap.mapView(InstantMessengerAccountItemRenderer, InstantMessengerAccountItemRendererMediator);
 			mediatorMap.mapView(FacebookAccountsEditorPod, FacebookAccountEditorPodMediator);
 			mediatorMap.mapView(FacebookEditor, FacebookEditorMediator);
 			mediatorMap.mapView(GooglePlusAccountsEditorPod, GooglePlusAccountEditorPodMediator);
