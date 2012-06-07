@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="50" autoDrawBackground="false" click="onClickHandler(event);">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.chloe.mvcs.model.googlePlus.GooglePlusHistoryModel;
+			import com.chloe.mvcs.model.phone.PhoneNumberHistoryModel;
+			
+			import mx.utils.StringUtil;
+			
+			[Bindable]
+			private var googlePlusAccount:String;
+			
+			[Bindable]
+			private var phoneNumberType:String;
+			
+			[Bindable]
+			private var dates:String;
+			
+			[Bindable]
+			private var reason:String = "It's the name I was born with"
+			
+			private var _googlePlusHistory:GooglePlusHistoryModel
+			
+			override public function set data(value:Object):void {
+				
+				_googlePlusHistory = value as GooglePlusHistoryModel
+				
+				this.googlePlusAccount = _googlePlusHistory.account.username;
+				dates = _googlePlusHistory.startDate.month + " " + _googlePlusHistory.startDate.day + ", " + _googlePlusHistory.startDate.year + " - " + _googlePlusHistory.endDate.month + " " + _googlePlusHistory.endDate.day + ", " + _googlePlusHistory.endDate.year;
+			}
+			
+			private function onClickHandler(event:MouseEvent):void {
+				
+				dispatchEvent(new GooglePlusEvent(GooglePlusEvent.EDIT_GOOGLE_PLUS_ACCOUNT, _googlePlusHistory));
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="-3"/>
+	</s:layout>
+	<s:Label text="{googlePlusAccount}" styleName="ItemTitle"/>
+	<s:Group>
+		<s:layout>
+			<s:VerticalLayout gap="0"/>
+		</s:layout>
+		<s:Label text="{phoneNumberType}" styleName="ItemTitle"/>
+		<s:Label text="{dates}" styleName="ItemSubTitle"/>
+		<s:Label text="{reason}" styleName="ItemSubTitle"/>
+	</s:Group>
+</s:ItemRenderer>
