@@ -46,10 +46,17 @@
 			
 			private var emailIsValid:Boolean = false;
 			
+			private var _typeOfEdit:String = new String();
+			
 			public function set emailAddressHistory(value:EmailHistoryModel):void {
 				
 				_emailAddressHistory = value;
 				
+			}
+			
+			public function set typeOfEdit(value:String):void {
+				
+				_typeOfEdit = value;
 			}
 			
 			public function isValidEmailAddress():Boolean {
@@ -78,6 +85,15 @@
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+				
+				this._emailAddressHistory.email.fullEmailAddress = emailInput.text;
+				
+				if(this._typeOfEdit =="add") {
+					
+					dispatchEvent(new EmailAddressEvent(EmailAddressEvent.SAVE_NEW_EMAIL_ADDRESS, this._emailAddressHistory))
+				} else {
+					dispatchEvent(new EmailAddressEvent(EmailAddressEvent.SAVE_EXISTING_EMAIL_ADDRESS, this._emailAddressHistory));
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {

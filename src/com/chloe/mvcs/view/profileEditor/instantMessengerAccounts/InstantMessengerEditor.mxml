@@ -41,12 +41,19 @@
 			[Bindable]
 			private var years:ArrayCollection;
 			
-			private var _instantMessengerAddressHistory:InstantMessengerHistoryModel
+			private var _instantMessengerAddressHistory:InstantMessengerHistoryModel;
+			
+			private var _typeOfEdit:String = new String();
 			
 			public function set instantMessengerHistory(value:InstantMessengerHistoryModel):void {
 				
 				_instantMessengerAddressHistory = value;
 				
+			}
+			
+			public function set typeOfEdi(value:String):void {
+				
+				_typeOfEdit = value;
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
@@ -68,6 +75,15 @@
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+				
+				this._instantMessengerAddressHistory.account.fullInstantMessengerAccount = nameInput.text;
+				
+				if(_typeOfEdit == "add") {
+					
+					dispatchEvent(new InstantMessengerEvent(InstantMessengerEvent.SAVE_NEW_INSTANT_MESSENGER_ACCOUNT, this._instantMessengerAddressHistory));
+				} else {
+					dispatchEvent(new InstantMessengerEvent(InstantMessengerEvent.SAVE_EXISTING_INSTANT_MESSENGER_ACCOUNT, this._instantMessengerAddressHistory));
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {

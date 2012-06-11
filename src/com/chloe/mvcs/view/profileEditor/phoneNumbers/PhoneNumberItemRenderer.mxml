@@ -36,7 +36,7 @@
 			
 			private function onClickHandler(event:MouseEvent):void {
 				
-				dispatchEvent(new PhoneEvent(PhoneEvent.EDIT_PHONE_NUMBER, _phoneHistory));
+				dispatchEvent(new PhoneNumberEvent(PhoneNumberEvent.EDIT_PHONE_NUMBER, _phoneHistory));
 			}
 		]]>
 	</fx:Script>

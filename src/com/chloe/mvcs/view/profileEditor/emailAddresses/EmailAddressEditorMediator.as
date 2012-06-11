@@ -18,6 +18,9 @@ package com.chloe.mvcs.view.profileEditor.emailAddresses
 		
 		override public function onRegister():void {
 			
+			eventMap.mapListener(view, EmailAddressEvent.SAVE_NEW_EMAIL_ADDRESS, dispatch);
+			eventMap.mapListener(view, EmailAddressEvent.SAVE_EXISTING_EMAIL_ADDRESS, dispatch);
+			
 			eventMap.mapListener(eventDispatcher, EmailAddressEvent.ADD_EMAIL_ADDRESS, onAddedNewNameHandler);
 			eventMap.mapListener(eventDispatcher, EmailAddressEvent.EDIT_EMAIL_ADDRESS, onEditNameHandler);
 			//eventMap.mapListener(eventDispatcher, RadioSelectEvent.ITEM_SELECTED, onItemSelectedHandler);

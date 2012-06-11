@@ -21,5 +21,15 @@ package com.chloe.mvcs.model.phone
 		public function phoneNumber(value:String):void {
 			
 		}
+		
+		public function set fullPhoneNumber(value:String):void {
+			
+			
+		}
+		
+		public function get fullPhoneNumber():String {
+			
+			return areaCode.toString() + prefix.toString() + number.toString();
+		}
 	}
 }

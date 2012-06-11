@@ -40,12 +40,19 @@
 			[Bindable]
 			private var countryCodes:ArrayCollection;
 			
-			private var _phoneHistory:PhoneNumberHistoryModel
+			private var _phoneHistory:PhoneNumberHistoryModel;
+			
+			private var _typeOfEdit:String = new String();
 			
 			public function set phoneHistory(value:PhoneNumberHistoryModel):void {
 				
 				_phoneHistory = value;
 				
+			}
+			
+			public function set typeOfEdit(value:String):void {
+				
+				_typeOfEdit = value;
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
@@ -68,6 +75,15 @@
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+				
+				this._phoneHistory.phoneNumber.fullPhoneNumber = this.nameInput.text;
+				
+				if(_typeOfEdit == "add") {
+					
+					dispatchEvent(new PhoneNumberEvent(PhoneNumberEvent.SAVE_NEW_PHONE_NUMBER, this._phoneHistory));
+				} else {
+					dispatchEvent(new PhoneNumberEvent(PhoneNumberEvent.SAVE_EXISTING_PHONE_NUMBER, this._phoneHistory));
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {

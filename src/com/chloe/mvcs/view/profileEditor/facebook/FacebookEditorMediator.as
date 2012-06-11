@@ -18,6 +18,9 @@ package com.chloe.mvcs.view.profileEditor.facebook
 		
 		override public function onRegister():void {
 			
+			eventMap.mapListener(view, FacebookEvent.SAVE_NEW_FACEBOOK_ACCOUNT, dispatch);
+			eventMap.mapListener(view, FacebookEvent.SAVE_EXISTING_FACEBOOK_ACCOUNT, dispatch);
+			
 			eventMap.mapListener(eventDispatcher, FacebookEvent.ADD_FACEBOOK_ACCOUNT, onAddedNewNameHandler);
 			eventMap.mapListener(eventDispatcher, FacebookEvent.EDIT_FACEBOOK_ACCOUNT, onEditNameHandler);
 			//eventMap.mapListener(eventDispatcher, RadioSelectEvent.ITEM_SELECTED, onItemSelectedHandler);

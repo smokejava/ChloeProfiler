@@ -9,6 +9,8 @@
 		<![CDATA[
 			import com.chloe.mvcs.model.address.AddressHistoryModel;
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.service.chloeProfileSave.ProfileSaveEvent;
+			import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -21,7 +23,7 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddAddressButton.png";
 			
-			public function set nameHistories(value:ArrayCollection):void {
+			public function set addressHistories(value:ArrayCollection):void {
 				
 				_addressHistories = value
 			};
@@ -30,6 +32,8 @@
 			public function saveNewAddress(value:AddressHistoryModel):void {
 				
 				this._addressHistories.addItemAt(value, 0);
+				
+				dispatchEvent(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 			}
 			
 			public function saveExistingAddress(value:AddressHistoryModel):void {
@@ -41,6 +45,8 @@
 						aAddressHistory = value;
 					}
 				}
+				
+				dispatchEvent(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 			}
 			
 			protected function addedToStageHandler(event:Event):void

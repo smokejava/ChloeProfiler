@@ -6,6 +6,8 @@ package com.chloe.mvcs.view.profileEditor.facebook
 	
 	public class FacebookEvent extends Event
 	{
+		public static const SAVE_NEW_FACEBOOK_ACCOUNT:String = "SAVE_NEW_FACEBOOK_ACCOUNT";
+		public static const SAVE_EXISTING_FACEBOOK_ACCOUNT:String = "SAVE_EXISTING_FACEBOOK_ACCOUNT";
 		public static const ADD_FACEBOOK_ACCOUNT:String = "ADD_FACEBOOK_ACCOUNT";
 		public static const EDIT_FACEBOOK_ACCOUNT:String = "EDIT_FACEBOOK_ACCOUNT";
 		

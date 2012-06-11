@@ -39,12 +39,19 @@
 			[Bindable]
 			private var years:ArrayCollection;
 			
-			private var _googlePlusAccountHistory:GooglePlusHistoryModel
+			private var _googlePlusAccountHistory:GooglePlusHistoryModel;
+			
+			private var _typeOfEdit:String = new String();
 			
 			public function set googlePlusAccountHistory(value:GooglePlusHistoryModel):void {
 				
 				_googlePlusAccountHistory = value;
 				
+			}
+			
+			public function set typeOfEdit(value:String):void {
+				
+				_typeOfEdit = value;
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
@@ -66,6 +73,16 @@
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+				
+				this._googlePlusAccountHistory.account.username = this.nameInput.text;
+				
+				if(_typeOfEdit == "add") {
+					
+					dispatchEvent(new GooglePlusEvent(GooglePlusEvent.SAVE_NEW_GOOGLE_PLUS_ACCOUNT, this._googlePlusAccountHistory));
+				} else {
+					
+					dispatchEvent(new GooglePlusEvent(GooglePlusEvent.SAVE_EXISTING_GOOGLE_PLUS_ACCOUNT, this._googlePlusAccountHistory));
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {

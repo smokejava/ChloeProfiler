@@ -10,6 +10,7 @@
 			import com.chloe.mvcs.model.picture.PictureHistoryModel;
 			import com.chloe.mvcs.model.picture.PictureModel;
 			import com.chloe.mvcs.view.search.ProfileEvent;
+			import com.chloe.mvcs.view.profileEditor.names.NameEvent;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -22,6 +23,24 @@
 			
 			[Bindable]
 			private var _nameHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _addressHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _phoneNumberHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _emailAddressHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _instantMessengerHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _facebookAccountHistories:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var _googlePlusAccountHistories:ArrayCollection = new ArrayCollection();
 			
 			public function get profileToEdit():ChloeProfileModel				{ return _profileToEdit};
 			public function set profileToEdit(value:ChloeProfileModel):void {
@@ -92,14 +111,12 @@
 		<s:VGroup>
 			<generalInfo:GeneralInfoEditorPod/>
 			<names:NameEditorPod nameHistories="{_nameHistories}"/>
-			<addresses:AddressEditorPod/>
-			<phoneNumbers:PhoneNumbersEditorPod/>
-			<emailAddresses:EmailAddressEditorPod/>
-			<instantMessengerAccounts:InstantMessengerAccountsEditorPod/>
-			<facebook:FacebookAccountsEditorPod/>
-			<googlePlusAccounts:GooglePlusAccountsEditorPod/>
-			<myspaceAccounts:MySpaceAccountsEditroPod/>
-			<instagramAccounts:InstaGramsAccountsEditorPod/>
+			<addresses:AddressEditorPod addressHistories="{_addressHistories}"/>
+			<phoneNumbers:PhoneNumbersEditorPod phoneNumberHistories="{_phoneNumberHistories}"/>
+			<emailAddresses:EmailAddressEditorPod emailHistories="{_emailAddressHistories}"/>
+			<instantMessengerAccounts:InstantMessengerAccountsEditorPod instantMessengerHistories="{_instantMessengerHistories}"/>
+			<facebook:FacebookAccountsEditorPod facebookAccountHistories="{_facebookAccountHistories}"/>
+			<googlePlusAccounts:GooglePlusAccountsEditorPod googlePlusAccountHistories="{_googlePlusAccountHistories}"/>
 		</s:VGroup>
 	</s:Scroller>
 	<names:NameEditor/>

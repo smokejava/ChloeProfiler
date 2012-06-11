@@ -8,6 +8,8 @@
 	<fx:Script>
 		<![CDATA[
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
+			import com.chloe.mvcs.view.search.ProfileEvent;
 			
 			import mx.collections.ArrayCollection;
 			
@@ -27,6 +29,8 @@
 			public function saveNewName(value:FullNameHistoryModel):void {
 				
 				_nameHistories.addItemAt(value, 0);
+				
+				dispatchEvent(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 			}
 			
 			public function saveExistingName(value:FullNameHistoryModel):void {
@@ -38,6 +42,8 @@
 						aNameHistory = value;
 					}
 				}
+				
+				dispatchEvent(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 			}
 			
 			protected function addedToStageHandler(event:Event):void

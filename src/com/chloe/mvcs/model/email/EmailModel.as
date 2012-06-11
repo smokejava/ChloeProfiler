@@ -15,9 +15,15 @@ package com.chloe.mvcs.model.email
 			super(target);
 		}
 		
-		public function fullEmailAddress():String {
+		public function get fullEmailAddress():String {
 			
 			return username + "@" + domain;
+		}
+		
+		public function set fullEmailAddress(value:String):void  {
+			
+			username = value.substr(0, value.indexOf("@")-1);
+			domain = value.substr(value.indexOf("@")+1, value.length)
 		}
 	}
 }

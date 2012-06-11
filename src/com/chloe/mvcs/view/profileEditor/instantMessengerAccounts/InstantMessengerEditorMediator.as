@@ -18,6 +18,9 @@ package com.chloe.mvcs.view.profileEditor.instantMessengerAccounts
 		
 		override public function onRegister():void {
 			
+			eventMap.mapListener(view, InstantMessengerEvent.SAVE_EXISTING_INSTANT_MESSENGER_ACCOUNT, dispatch);
+			eventMap.mapListener(view, InstantMessengerEvent.SAVE_NEW_INSTANT_MESSENGER_ACCOUNT, dispatch);
+			
 			eventMap.mapListener(eventDispatcher, InstantMessengerEvent.ADD_INSTANT_MESSENGER_ACCOUNT, onAddedNewNameHandler);
 			eventMap.mapListener(eventDispatcher, InstantMessengerEvent.EDIT_INSTANT_MESSENGER_ACCOUNT, onEditNameHandler);
 			//eventMap.mapListener(eventDispatcher, RadioSelectEvent.ITEM_SELECTED, onItemSelectedHandler);

@@ -6,6 +6,8 @@ package com.chloe.mvcs.view.profileEditor.googlePlusAccounts
 	
 	public class GooglePlusEvent extends Event
 	{
+		public static const SAVE_NEW_GOOGLE_PLUS_ACCOUNT:String = "SAVE_NEW_GOOGLE_PLUS_ACCOUNT";
+		public static const SAVE_EXISTING_GOOGLE_PLUS_ACCOUNT:String = "SAVE_EXISTING_GOOGLE_PLUS_ACCOUNT";
 		public static const ADD_GOOGLE_PLUS_ACCOUNT:String = "ADD_GOOGLE_PLUS_ACCOUNT";
 		public static const EDIT_GOOGLE_PLUS_ACCOUNT:String = "EDIT_GOOGLE_PLUS_ACCOUNT";
 		

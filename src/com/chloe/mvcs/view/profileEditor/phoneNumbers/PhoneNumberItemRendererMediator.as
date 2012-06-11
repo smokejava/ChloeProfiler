@@ -9,7 +9,7 @@ package com.chloe.mvcs.view.profileEditor.phoneNumbers
 		
 		override public function onRegister():void {
 			
-			eventMap.mapListener(view, PhoneEvent.EDIT_PHONE_NUMBER, dispatch);
+			eventMap.mapListener(view, PhoneNumberEvent.EDIT_PHONE_NUMBER, dispatch);
 		}
 	}
 }

@@ -38,12 +38,19 @@
 			[Bindable]
 			private var years:ArrayCollection;
 			
+			private var _typeOfEdit:String = new String();
+			
 			private var _facebookAccountHistory:FacebookHistoryModel
 			
 			public function set facebookAccountHistory(value:FacebookHistoryModel):void {
 				
 				_facebookAccountHistory = value;
 				
+			}
+			
+			public function set typeOfEdit(value:String):void {
+				
+				_typeOfEdit = value;
 			}
 			
 			private function onAddedToStageHandler(event:Event):void {
@@ -65,6 +72,15 @@
 			private function onSaveClickHandler(event:MouseEvent):void {
 				
 				this.currentState = "hide";
+				
+				this._facebookAccountHistory.facebookAccount.username = this.nameInput.text;
+				if(_typeOfEdit == "add") {
+					
+					dispatchEvent(new FacebookEvent(FacebookEvent.SAVE_NEW_FACEBOOK_ACCOUNT, this._facebookAccountHistory))
+				} else {
+					
+					dispatchEvent(new FacebookEvent(FacebookEvent.SAVE_EXISTING_FACEBOOK_ACCOUNT, this._facebookAccountHistory));
+				}
 			}
 			
 			private function onCancelClickHandler(event:MouseEvent):void {

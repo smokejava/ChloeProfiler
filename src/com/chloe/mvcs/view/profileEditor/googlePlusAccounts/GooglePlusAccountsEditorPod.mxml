@@ -15,7 +15,7 @@
 			import mx.collections.ArrayCollection;
 			
 			[Bindable]
-			private var _phoneHistories:ArrayCollection;
+			private var _googlePlusHistories:ArrayCollection;
 			
 			[Bindable]
 			private var _podTitle:String = "Google+ Accounts";
@@ -23,8 +23,8 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddGooglePlusAccount.png";
 			
-			public function set phoneNumberHistories(value:ArrayCollection):void 			{
-				_phoneHistories = value
+			public function set googlePlusAccountHistories(value:ArrayCollection):void 			{
+				_googlePlusHistories = value
 			};
 			
 			
@@ -52,5 +52,5 @@
 	<s:Group id="addButton" click="onAddedButtonClickHandler(event)">
 		<s:BitmapImage  source="{_addButtonImageSource}"/>
 	</s:Group>
-	<s:List id="listings" width="100%" height="100%" itemRenderer="com.chloe.mvcs.view.profileEditor.names.NameItemRenderer" dataProvider="{_phoneHistories}" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+	<s:List id="listings" width="100%" height="100%" itemRenderer="com.chloe.mvcs.view.profileEditor.names.NameItemRenderer" dataProvider="{_googlePlusHistories}" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
 </s:Group>

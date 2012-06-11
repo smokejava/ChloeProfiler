@@ -33,7 +33,7 @@
 			
 			private function onAddedButtonClickHandler(event:MouseEvent):void {
 				
-				dispatchEvent(new PhoneEvent(PhoneEvent.ADD_NEW_PHONE_NUMBER, new PhoneNumberHistoryModel()));
+				dispatchEvent(new PhoneNumberEvent(PhoneNumberEvent.ADD_NEW_PHONE_NUMBER, new PhoneNumberHistoryModel()));
 			}
 			
 		]]>

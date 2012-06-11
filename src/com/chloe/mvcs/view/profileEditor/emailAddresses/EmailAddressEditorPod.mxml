@@ -21,7 +21,7 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddEmailButton.png";
 			
-			public function set nameHistories(value:ArrayCollection):void 			{
+			public function set emailHistories(value:ArrayCollection):void 			{
 				_nameHistories = value
 			};
 			

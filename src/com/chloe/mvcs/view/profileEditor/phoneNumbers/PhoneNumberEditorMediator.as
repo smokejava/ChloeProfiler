@@ -19,17 +19,20 @@ package com.chloe.mvcs.view.profileEditor.phoneNumbers
 		
 		override public function onRegister():void {
 			
-			eventMap.mapListener(eventDispatcher, PhoneEvent.ADD_NEW_PHONE_NUMBER , onAddedNewNameHandler);
-			eventMap.mapListener(eventDispatcher, PhoneEvent.EDIT_PHONE_NUMBER, onEditNameHandler);
+			eventMap.mapListener(view, PhoneNumberEvent.SAVE_EXISTING_PHONE_NUMBER, dispatch);
+			eventMap.mapListener(view, PhoneNumberEvent.SAVE_NEW_PHONE_NUMBER, dispatch);
+			
+			eventMap.mapListener(eventDispatcher, PhoneNumberEvent.ADD_NEW_PHONE_NUMBER , onAddedNewNameHandler);
+			eventMap.mapListener(eventDispatcher, PhoneNumberEvent.EDIT_PHONE_NUMBER, onEditNameHandler);
 		}
 		
-		private function onAddedNewNameHandler(event:PhoneEvent):void {
+		private function onAddedNewNameHandler(event:PhoneNumberEvent):void {
 			
 			view.phoneHistory = event.phoneHistory
 			view.currentState = "show"
 		}
 		
-		private function onEditNameHandler(event:PhoneEvent):void {
+		private function onEditNameHandler(event:PhoneNumberEvent):void {
 			
 			view.phoneHistory = event.phoneHistory
 			view.currentState = "show";

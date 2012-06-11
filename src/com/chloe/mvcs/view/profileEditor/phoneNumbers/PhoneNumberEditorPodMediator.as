@@ -13,7 +13,7 @@ package com.chloe.mvcs.view.profileEditor.phoneNumbers
 		
 		override public function onRegister():void {
 			
-			eventMap.mapListener(view, PhoneEvent.ADD_NEW_PHONE_NUMBER , dispatch);
+			eventMap.mapListener(view, PhoneNumberEvent.ADD_NEW_PHONE_NUMBER , dispatch);
 		}
 	}
 }
