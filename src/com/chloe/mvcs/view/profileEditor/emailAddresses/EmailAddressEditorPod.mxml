@@ -9,11 +9,12 @@
 		<![CDATA[
 			import com.chloe.mvcs.model.email.EmailHistoryModel;
 			import com.chloe.mvcs.model.name.FullNameHistoryModel;
+			import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
 			
 			import mx.collections.ArrayCollection;
 			
 			[Bindable]
-			private var _nameHistories:ArrayCollection;
+			private var _emailAddressHistories:ArrayCollection;
 			
 			[Bindable]
 			private var _podTitle:String = "Email Addresses";
@@ -21,9 +22,27 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddEmailButton.png";
 			
-			public function set emailHistories(value:ArrayCollection):void 			{
-				_nameHistories = value
-			};
+			public function set emailHistories(value:ArrayCollection):void 	{
+				
+				_emailAddressHistories = value;
+			}
+			
+			public function saveNewEmailAddress(value:EmailHistoryModel):void {
+				
+				_emailAddressHistories.addItemAt(value, 0);
+
+			}
+			
+			public function saveExistingEmailAddress(value:EmailHistoryModel):void {
+				
+				for each(var aEmailHistory:EmailHistoryModel in _emailAddressHistories) {
+					
+					if(aEmailHistory.id == value.id) {
+						
+						aEmailHistory = value;
+					}
+				}
+			}
 			
 			
 			protected function addedToStageHandler(event:Event):void
@@ -50,5 +69,5 @@
 	<s:Group id="addButton" click="onAddedButtonClickHandler(event)">
 		<s:BitmapImage  source="{_addButtonImageSource}"/>
 	</s:Group>
-	<s:List id="listings" width="100%" height="100%" itemRenderer="com.chloe.mvcs.view.profileEditor.names.NameItemRenderer" dataProvider="{_nameHistories}" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+	<s:List id="listings" width="100%" height="100%" itemRenderer="com.chloe.mvcs.view.profileEditor.names.NameItemRenderer" dataProvider="{_emailAddressHistories}" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
 </s:Group>

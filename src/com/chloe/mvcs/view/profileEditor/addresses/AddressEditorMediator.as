@@ -2,6 +2,7 @@ package com.chloe.mvcs.view.profileEditor.addresses
 {
 	import com.chloe.mvcs.view.common.RadioSelectEvent;
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
+	import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
 	import com.chloe.mvcs.view.profileEditor.addresses.AddressEditor;
 	
 	import flash.events.Event;

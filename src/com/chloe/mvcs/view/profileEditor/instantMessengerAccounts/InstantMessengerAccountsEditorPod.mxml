@@ -22,10 +22,25 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddInstantMessengerButton.png";
 			
-			public function set instantMessengerHistories(value:ArrayCollection):void 			{
+			public function set instantMessengerHistories(value:ArrayCollection):void {
 				_instantMessengerHistories = value
-			};
+			}
 			
+			public function saveNewInstantMessengerAccount(value:InstantMessengerHistoryModel):void {
+				
+				this._instantMessengerHistories.addItemAt(value, 0);
+			}
+			
+			public function saveExistingInstantMessengerAccount(value:InstantMessengerHistoryModel):void {
+				
+				for each(var aInstantMessengerHistory:InstantMessengerHistoryModel in this._instantMessengerHistories) {
+					
+					if(aInstantMessengerHistory.id == value.id) {
+						
+						aInstantMessengerHistory = value;
+					}
+				}
+			}
 			
 			protected function addedToStageHandler(event:Event):void
 			{

@@ -32,6 +32,22 @@
 				//listings.itemRenderer = com.chloe.mvcs.view.profileEditor.names.NameItemRenderer as IFactory;
 			}
 			
+			public function saveNewFacebookAccountHistory(value:FacebookHistoryModel):void {
+			
+				_facebookAccountHistories.addItemAt(value, 0);
+			}
+			
+			public function saveExistingFacebookAccountHistory(value:FacebookHistoryModel):void {
+				
+				for each(var aFacebookAccountHistory:FacebookHistoryModel in this._facebookAccountHistories) {
+					
+					if(aFacebookAccountHistory.id == value.id) {
+						
+						aFacebookAccountHistory = value;
+					}
+				}
+			}
+			
 			private function onAddedButtonClickHandler(event:MouseEvent):void {
 				
 				dispatchEvent(new FacebookEvent(FacebookEvent.ADD_FACEBOOK_ACCOUNT, new FacebookHistoryModel()));

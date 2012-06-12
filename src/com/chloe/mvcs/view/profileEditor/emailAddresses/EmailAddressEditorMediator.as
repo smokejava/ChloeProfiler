@@ -2,6 +2,7 @@ package com.chloe.mvcs.view.profileEditor.emailAddresses
 {
 	import com.chloe.mvcs.view.common.RadioSelectEvent;
 	import com.chloe.mvcs.view.common.radioVerticalScroller.RadioScrollItem;
+	import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
 	
 	import flash.events.Event;
 	
@@ -42,5 +43,6 @@ package com.chloe.mvcs.view.profileEditor.emailAddresses
 			
 			//view.reasonSelected(event.radioId);
 		}
+
 	}
 }

@@ -20,6 +20,7 @@ package com.chloe.mvcs.view.profileEditor
 			eventMap.mapListener(view, ProfileEvent.SEARCH_FOR_PROFILE, dispatch);
 			eventMap.mapListener(eventDispatcher, PictureSaveEvent.SAVE_PICTURE, onSavePictureHandler);
 			eventMap.mapListener(eventDispatcher, ProfileEvent.CREATE_NEW_PROFILE, onCreateNewProfileHandler);
+			eventMap.mapListener(eventDispatcher, ProfileChangeEvent.PROFILE_ITEM_CHANGED, onProfileChangedHandler);
 		}
 		
 		private function onCreateNewProfileHandler(event:ProfileEvent):void {
@@ -30,6 +31,10 @@ package com.chloe.mvcs.view.profileEditor
 		private function onSavePictureHandler(event:PictureSaveEvent):void {
 			
 			view.addNewPhoto(event.pictureHistoryModel);
+		}
+		
+		private function onProfileChangedHandler(event:ProfileChangeEvent):void {
+			
 		}
 	}
 }

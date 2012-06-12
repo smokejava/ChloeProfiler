@@ -21,9 +21,25 @@
 			[Bindable]
 			private var _addButtonImageSource:String = "embedded_assets/AddPhoneNumberButton.png";
 			
-			public function set phoneNumberHistories(value:ArrayCollection):void 			{
+			public function set phoneNumberHistories(value:ArrayCollection):void {
 				_phoneHistories = value
-			};
+			}
+			
+			public function saveNewPhoneNumber(value:PhoneNumberHistoryModel):void {
+				
+				_phoneHistories.addItemAt(value, 0);
+			}
+			
+			public function saveExistingPhoneNumber(value:PhoneNumberHistoryModel):void {
+				
+				for each(var aPhoneHistory:PhoneNumberHistoryModel in _phoneHistories) {
+					
+					if(aPhoneHistory.id == value.id) {
+						
+						aPhoneHistory = value;
+					}
+				}
+			}
 			
 			
 			protected function addedToStageHandler(event:Event):void

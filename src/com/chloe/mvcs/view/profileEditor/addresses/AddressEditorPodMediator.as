@@ -1,5 +1,7 @@
 package com.chloe.mvcs.view.profileEditor.addresses
 {
+	import com.chloe.mvcs.view.profileEditor.ProfileChangeEvent;
+	
 	import org.robotlegs.mvcs.Mediator;
 	
 	public class AddressEditorPodMediator extends Mediator
@@ -22,11 +24,15 @@ package com.chloe.mvcs.view.profileEditor.addresses
 		private function onSaveNewAddressHandler(event:AddressEvent):void {
 			
 			view.saveNewAddress(event.addressHistory);
+			
+			dispatch(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 		}
 		
 		private function onSaveExistingAddressHandler(event:AddressEvent):void {
 			
 			view.saveExistingAddress(event.addressHistory);
+			
+			dispatch(new ProfileChangeEvent(ProfileChangeEvent.PROFILE_ITEM_CHANGED));
 		}
 	}
 }

@@ -27,7 +27,21 @@
 				_googlePlusHistories = value
 			};
 			
+			public function saveNewGooglePlusAccount(value:GooglePlusHistoryModel):void {
+				
+				_googlePlusHistories.addItemAt(value, 0);
+			}
 			
+			public function saveExistingGooglePlusAccount(value:GooglePlusHistoryModel):void {
+				
+				for each(var aGooglePlusAccountHistory:GooglePlusHistoryModel in _googlePlusHistories) {
+					
+					if(aGooglePlusAccountHistory.id == value.id) {
+						
+						aGooglePlusAccountHistory = value;
+					}
+				}
+			}
 			protected function addedToStageHandler(event:Event):void
 			{
 				//listings.itemRenderer = com.chloe.mvcs.view.profileEditor.names.NameItemRenderer as IFactory;
