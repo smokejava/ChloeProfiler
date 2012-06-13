@@ -11,5 +11,5 @@
 			private var image:Class;
 		]]>
 	</fx:Script>
-	<s:BitmapImage source="{image}"/>
+	<s:BitmapImage source="{image}"
 </s:Group>

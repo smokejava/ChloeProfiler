@@ -4,14 +4,4 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<fx:Script>
-		<![CDATA[
-			
-			private function onAddedToStageHandler(event:Event):void {
-				
-				this.addButton.parent.removeChild(this.addButton);
-			}
-		]]>
-		
-	</fx:Script>
 </profileEditor:EditorPod>
